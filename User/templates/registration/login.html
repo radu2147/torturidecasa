@@ -1,0 +1,59 @@
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+<div class="container">
+<div class="container">
+<div class="container">
+<div class="row">
+<div class="col-3"></div>
+<div class="col-6">
+<div class="card">
+
+  <!-- Card body -->
+  <div class="card-body">
+	
+    <!-- Material form register -->
+    <form method="post" novalidate>
+	{% csrf_token %}
+      <p class="h4 text-center py-4">Sign in</p>
+	{% load socialaccount %}
+{% providers_media_js %}
+<a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-block btn-social btn-facebook" style="background-color:#3b5998;text-align:center">
+  <span class="fa fa-facebook"></span>
+               Sign in with Facebook
+ </a>
+      <!-- Material input text -->
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+		<input class="form-control" placeholder="Your name" type="email" name="email" maxlength="50" required="" id="id_email">
+        
+      </div>
+
+      <!-- Material input password -->
+      <div class="md-form">
+        <i class="fa fa-lock prefix grey-text"></i>
+		<input class="form-control" placeholder="Your password" type="password" name="password" maxlength="50" required="" id="id_password">
+      </div>
+
+      <div class="text-center py-4 mt-3">
+        <button class="btn btn-cyan" type="submit">Log in</button>
+      </div>
+    </form>
+    <!-- Material form register -->
+
+  </div>
+  <!-- Card body -->
+</div>
+<div class="col-3"></div>
+</div>
+</div>
+</div>
+</div>
+</div>

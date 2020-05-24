@@ -1,0 +1,304 @@
+{% extends "main.html" %}
+{% block content %}
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+
+{% load static %}
+
+{% for sub in lista %}
+
+<!-- News jumbotron -->
+<div class="jumbotron text-center hoverable p-4">
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-4 offset-md-1 mx-3 my-3">
+
+      <!-- Featured image -->
+      <div class="view overlay">
+        <img src="{% static "tort.png" %}" class="img-fluid" alt="Sample image for first version of blog listing">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-7 text-md-left ml-3 mt-3">
+
+      <!-- Excerpt -->
+      <a href="#!" class="green-text">
+        <h6 class="h6 pb-1">{{sub.show_rating}}<i class="fas fa-star"></i></h6>
+      </a>
+
+      <h4 class="h4 mb-4">{{sub.nume}}</h4>
+
+      <p class="font-weight-normal">{{sub.descr}}</p>
+      <p class="font-weight-normal">19/08/2016</p>
+
+      <a href="{% url 'Prod' sub.ident %}" class="btn btn-success">Read more</a>
+
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+</div>
+
+{% endfor %}
+
+{% endblock %}
+
+
+{% block favorites %}
+<div class="list-group">
+
+<div class="list-group-item list-group-item-action flex-column align-items-start">
+  <h5 class="mb-2 h5">Most popular</h5>
+</div>
+{% for el in favorites %}
+  <a href="{% url 'Prod' el.ident %}" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-2 h5">{{el.nume}}</h5>
+		{% if el.number > 0 %}
+      		<small class="green-text">{{el.show_rating }}<i class="fas fa-star"></i></small>
+		{% else %}
+			<small class="green-text">Niciun vot</small>
+		{% endif %}
+    </div>
+    <p class="mb-2">{{el.descr}}</p>
+  </a>
+{% endfor %}
+</div>
+
+{% endblock %}
+
+
+
+
+
+{% load crispy_forms_tags %}
+
+
+{% block formular %}
+  <h2 class="mt-2 pb-4">Cauta-ti tortul pereche</h2>
+
+ <form method="post" novalidate id="myForm" >
+    {% csrf_token %}
+	<div class="row ml-3">
+	<div class="col-10 md-form mt-0">
+
+		<input class="form-control" type="text" placeholder="Nume" aria-label="Search" name="nume" maxlength="50" id="id_nume">
+
+	</div> 
+	</div>
+	<div class="row ml-3">
+      <div class="col-5 md-form mt-0">
+        <input class="form-control" placeholder="Pret minim" aria-label="Pret minim" type="number" name="minprice" min="0" step="any" id="id_minprice">
+      </div>
+	  <div class="col-5 md-form mt-0">
+        <input class="form-control" placeholder="Pret maxim" aria-label="Pret maxim" type="number" name="maxprice" min="0" step="any" id="id_maxprice">
+      </div>
+	</div>
+    <button type="submit" class="btn btn-success">Search</button>
+  </form>
+
+{% endblock %}
+
+
+
+
+
+
+{% block navbar %}
+<nav class="navbar navbar-dark" style="min-height:100px">
+  <a class="navbar-brand" href="#" style="padding-left: 120px">
+    <img src="{% static 'tort.png' %}" height="30" class="d-inline-block align-top"
+      alt="mdb logo"> <div class="green-text">Torturi de casa Bacau</div>
+  </a>
+	<a class="navbar-brand" href="/user/myaccount/wish" data-toggle="tooltip" title="Wish List" style="margin-left: 650px"><i class="fa fa-heart" style="font-size:33px;color:#a5d6a7"></i></a>
+	<a class="navbar-brand" href="/user/myaccount/wish" data-toggle="tooltip" title="Cart" style="margin-right: 250px"><i style="font-size:33px;color:#a5d6a7" class="fas fa-shopping-cart"></i></a>
+</nav>
+<nav class="navbar navbar-expand-sm #a5d6a7 lighten-3", style="background-color:#a5d6a7", style="min-height:100px">
+  <!-- Brand -->
+  <a class="navbar-brand white-text" style="padding-left: 120px" href="{% url 'home' %}"><b>Home</b></a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+	<li class="nav-item">
+      <a class="nav-link white-text" href="/personalizare/"><b>Personalizare</b></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link white-text" href="/personalizare/"><b>Contact</b></a>
+    </li>
+	
+
+    <!-- Dropdown -->
+	{% if user.is_anonymous == True %}
+    <li class="nav-item" style="padding-left: 900px">
+      <a class="nav-link white-text" href="/user/register">
+        <b>Register</b>
+      </a>
+    </li>
+	<li class="nav-item" style="padding-left: 20px">
+      <a class="nav-link white-text" href="/user/login">
+        <b>Login</b>
+      </a>
+    </li>
+	{% else %}
+	<li class="nav-item" style="padding-left: 900px">
+      <a class="nav-link white-text" href="/user/myaccount">
+        <b>{{user.nume}}</b>
+      </a>
+    </li>
+	<li class="nav-item" style="padding-left: 30px">
+      <a class="nav-link white-text" href="/user/logout">
+        Logout
+      </a>
+    </li>	
+	{% endif %}
+  </ul>
+</nav>
+
+{% endblock %}
+
+{% block pagination %}
+
+{% if pagination == True %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+	{% if last == 1 %}
+		<li class="page-item"><a class="page-link disabled" href="">{{ curent }}</a></li>
+	{% elif last == 2 %}
+	<li class="page-item"><a class="page-link" href="">{{ curent }}</a></li>
+    <li class="page-item"><a class="page-link" href="{% url 'Homepage' next %}">{{ next }}</a></li>
+	{% else %}
+	{% if prev == 0 %}
+    	<li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
+	{% else %}
+		<li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
+	{% endif %}
+	{% if curent == last %}
+	<li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' antepen %}">{{ antepen }}</a></li>
+    <li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
+	<li class="page-item ml-2"><a class="page-link white-text" style="background-color:#a5d6a7" href="{% url 'Homepage' last %}">{{ curent }}</a></li>
+	{% elif curent == 1 %}
+	<li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">1</a></li>
+    <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">2</a></li>
+	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' 3 %}">3</a></li>
+	{% else %}
+	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
+    <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">{{ next }}</a></li>
+	{% endif %}
+	{% if curent == last %}
+    	<li class="page-item ml-2"><a class="page-link disabled rounded-circle" href="#">-></a></li>
+	{% else %}
+		<li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' next %}">-></a></li>
+	{% endif %}
+	{% endif %}
+	<li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
+  </ul>
+</nav>
+{% else %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+	{% if last == 1 %}
+		<li class="page-item"><a class="page-link disabled" href="">{{ curent }}</a></li>
+	{% elif last == 2 %}
+	<li class="page-item"><a class="page-link" href="">{{ curent }}</a></li>
+    <li class="page-item"><a class="page-link" href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
+	{% else %}
+	{% if prev == 0 %}
+    	<li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
+	{% else %}
+		<li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
+	{% endif %}
+	{% if curent == last %}
+	<li class="page-item ml-2"><a class="page-link" href="{% url 'filter' nume mini maxi antepre %}">{{antepre}}</a></li>
+    <li class="page-item ml-2"><a class="page-link" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
+	<li class="page-item ml-2"><a class="page-link white-text" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+	{% elif curent == 1 %}
+	<li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">1</a></li>
+    <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi next %}">2</a></li>
+	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi 3 %}">3</a></li>
+	{% else %}
+	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
+    <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
+	{% endif %}
+	{% if curent == last %}
+    	<li class="page-item ml-2"><a class="page-link disabled rounded-circle" href="">-></a></li>
+	{% else %}
+		<li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi next %}"><b>-></b></a></li>
+	{% endif %}
+	{% endif %}
+	<li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
+  </ul>
+</nav>
+
+{% endif %}
+{% endblock %}
+
+
+
+
+{% block footer %}
+<footer class="page-footer font-small m" style="background-color:#a5d6a7">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Grid row-->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-12 py-5">
+        <div class="mb-5 flex-center">
+
+          <!-- Facebook -->
+          <a class="fb-ic">
+            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic">
+            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Google +-->
+          <a class="gplus-ic">
+            <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Linkedin -->
+          <a class="li-ic">
+            <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+
+        </div>
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row-->
+
+  </div>
+  <!-- Footer Elements -->
+
+  
+ </footer>
+{% endblock %}
