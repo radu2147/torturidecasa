@@ -55,3 +55,34 @@
 </nav>
 
 {% endblock %}
+
+{% block addr %}
+
+  <h2 class="mt-2 pb-4">Modifica-ti datele</h2>
+
+ <form method="post" novalidate id="myForm" >
+    {% csrf_token %}
+  <div class="row ml-3">
+  <div class="col-6 md-form mt-0">
+
+    <input class="form-control" type="text" placeholder="Street" aria-label="Search" name="street" maxlength="50" id="id_street">
+    <input class="form-control" type="number" placeholder="Numarul strazii" aria-label="Search" min=0 name="street_number" id="id_street_number">
+    <input class="form-control" type="number" placeholder="Bloc" aria-label="Bloc" name="bloc" min=0 id="id_block">
+
+  </div> 
+  </div>
+  <div class="row ml-3">
+      <div class="col-2 md-form mt-0">
+        <input class="form-control" placeholder="Scara" aria-label="Scara" type="text" name="scara" max_length = "1" id="id_scara">
+      </div>
+    <div class="col-2 md-form mt-0">
+        <input class="form-control" placeholder="Apartament" aria-label="Pret maxim" type="number" name="ap" min="0" step="any" id="id_ap">
+      </div>
+      <div class="col-2 md-form mt-0">
+        <input class="form-control" placeholder="Numar de telefon" aria-label="Numar de telefon" type="text" name="phone_number" max_length = "10" id="id_phone_number">
+      </div>
+  </div>
+    <button type="submit" class="btn btn-success">Modifica</button>
+  </form>
+
+{% endblock %}

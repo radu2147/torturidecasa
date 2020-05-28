@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 def phone(value):
-	if(len(value) != 10):
+	if len(value) != 10 or value.startswith("0") == False or len([x for x in list(value) if x not in "0123456789"]) > 0:
 		raise ValidationError(
             _('%(value)s is not a phone number'),
             params={'value': value},

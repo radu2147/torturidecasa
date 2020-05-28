@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, get_user_model, logout
 
 from .forms import *
-from .models import CustomUser
+from .models import *
 from HomePage.models import Produs
 from Cart.models import *
 from Cart.forms import *
@@ -15,14 +15,21 @@ from Personalize.models import *
 # Create your views here.
 class UserView(View):
     def get(self, request):
+        form = AddrForm(request.POST)
         if request.user.is_authenticated:
             lista = []
             if request.user.is_staff:
                 lista = [x for x in CustomOrder.objects.all()]
-            return render(request, 'extend_user.html', {'user': request.user, 'lista' : lista})
+            return render(request, 'extend_user.html', {'user': request.user, 'lista' : lista, 'form' : form})
         else:
             return redirect('/user/login')
     def post(self, request):
+        form = AddrForm(request.POST)
+        if form.is_valid():
+            obj, crt = Address.objects.get_or_create(street = form.cleaned_data['street'], phone_number = form.cleaned_data['phone_number'], street_number = form.cleaned_data['street_number'], bloc = form.cleaned_data['bloc'], scara = form.cleaned_data['scara'], ap = form.cleaned_data['ap'])
+            ob = request.user.addr
+            request.user.addr = obj
+            request.user.save()        
         return self.get(request)
         
 class UserViewWish(View):
@@ -41,6 +48,8 @@ class UserViewCart(View):
         
 class RegisterView(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("/user/myaccount")
         form = RegisterForm()
         return render(request, 'registration/register.html', {'form': form})
         
@@ -58,6 +67,8 @@ class RegisterView(View):
         
 class LoginView(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("/user/myaccount")
         form = LoginForm()
         return render(request, 'registration/login.html', {'form': form})
         

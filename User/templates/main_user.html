@@ -27,10 +27,9 @@
 {% block navbar %}
 {% endblock %}
 <div class="container">
-<h1> HI {{user.nume}}</h1>
-{% for el in lista %}
-<h4> {{el}} </h4>
-{% endfor %}
+<h1> Salut, {{user.nume}}</h1>
+{% block addr %}
+{% endblock %}
 </div>
 </body>
 
