@@ -35,3 +35,8 @@ class AddrForm(forms.Form):
     bloc = forms.IntegerField(validators=[poz])
     scara = forms.CharField(validators=[scara], max_length = 1)
     ap = forms.IntegerField(validators=[poz])
+
+class ChangeForm(forms.Form):
+    nume = forms.CharField(max_length = 100, required = False)
+    old_passwd = forms.CharField(max_length = 100)
+    passwd = forms.CharField(max_length = 100, required = False)

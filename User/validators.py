@@ -21,3 +21,12 @@ def scara(value):
             _('%(value)s is not a phone number'),
             params={'value': value},
         )
+
+def validate_passwds(pass1, pass2):
+	return pass1 == pass2
+
+def valid_pass(value):
+	return len(value) > 7
+
+def valid_name(value):
+	return len(value) > 0
