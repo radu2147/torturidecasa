@@ -59,12 +59,14 @@
 {% block addr %}
 
   
- <form method="post" novalidate id="myForm" >
-    {% csrf_token %}
+ 
   <div class="row ml-3">
     <div class="col-5 md-form mt-0">
       <h2 class="mt-2 pb-4 mb-5">Modifica-ti adresa</h2>
+      <form method="post" novalidate id="myForm" >
+        {% csrf_token %}
       <div>
+      
         <label for="id_street" style="padding-top: 70px"><h5>Strada</h5></label>
         <input class="form-control" type="text" placeholder="Street" aria-label="Search" name="street" maxlength="50" id="id_street" value={{addr.street}}>
       </div>
@@ -77,7 +79,7 @@
         <input class="form-control" type="number" placeholder="Bloc" value={{addr.bloc}} aria-label="Bloc" name="bloc" min=0 id="id_bloc">
       </div>
       
-   
+      
       <div class="row" style="margin-top: 30px">
         <div class="col-4">
           <div style="margin-bottom: 40px">
@@ -100,17 +102,37 @@
           <input class="form-control" placeholder="Numar de telefon" aria-label="Numar de telefon" value={{addr.phone_number}} type="text" name="phone_number" max_length = "10" id="id_phone_number">
         </div>
       </div>
+       <button type="submit" class="btn btn-success">Modifica</button>
+      </form>
       </div>
     <div class="col-1"></div>
+
     <div class="col-4 md-form mt-0">
-      <h2 class="mt-2 pb-4">Modifica-ti datele</h2>
-       </div> 
+      <h2 class="mt-2 pb-4">
+        Modifica-ti datele
+      </h2>
+      <div class="mt-5">
+        <form method="post" id="data" novalidate>
+          {% csrf_token %}
+          <div>
+            <label for="id_nume" style="padding-top: 70px"><h5>Nume</h5></label>
+            <input class="form-control" type="text" aria-label="Search" name="nume" maxlength="50" id="id_nume">
+          </div>
+          <div style="margin-top: 70px">
+            <label for="id_old_passwd" style="padding-top: 180px"><h5>Parola veche</h5></label>
+            <input class="form-control" type="text" aria-label="Search" name="old_passwd" id="id_old_passwd">
+          </div>
+          <div style="margin-top: 70px">
+            <label for="id_passwd" style="padding-top: 290px"><h5>Parola noua</h5></label>
+            <input class="form-control" type="text" aria-label="Bloc" name="passwd" id="id_passwd">
+          </div>
+          <button type="submit" class="btn btn-success">Modifica</button>
+        </form>
+      </div>
+    </div> 
 
     
   </div>
-  
-    <button type="submit" class="btn btn-success">Modifica</button>
-  </form>
 
 {% endblock %}
 

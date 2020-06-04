@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
-
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, get_user_model, logout
 
 from .forms import *
-from .validators import validate_passwds, valid_pass, valid_name
+from .validators import valid_pass, valid_name
 from .models import *
 from HomePage.models import Produs
 from Cart.models import *
 from Cart.forms import *
 from Personalize.models import *
+from .utils import *
 
 # Create your views here.
 class UserView(View):
@@ -34,12 +35,16 @@ class UserView(View):
             return render(request, 'extend_user.html', {'user': request.user, 'form' : form, 'addr' : addr})
         elif 'old_passwd' in request.POST.keys():
             form = ChangeForm(request.POST)
-            
+
             if form.is_valid():
-                if not validate_passwds(form.cleaned_data['old_passwd'], form.cleaned_data['passwd']):
+                if not request.user.check_password(form.cleaned_data['old_passwd']):
                     return HttpResponse("Passwords do not match")
                 if valid_pass(form.cleaned_data['passwd']):
-                    request.user.password = form.cleaned_data['passwd']
+                    obj = CustomUser.objects.get(email = request.user.email)
+                    request.user.set_password(form.cleaned_data['passwd'])
+                    request.user.save()
+                    obj = authenticate(request, email = obj.email, password = form.cleaned_data['passwd'])
+                    login(request, obj)
                 if valid_name(form.cleaned_data['nume']):
                     request.user.nume = form.cleaned_data['nume']
                 request.user.save()
@@ -72,7 +77,8 @@ class RegisterView(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             User = get_user_model()
-            us = User.objects.create_user(email = form.cleaned_data['email'], password = form.cleaned_data['password'], nume=form.cleaned_data['nume'])
+            adr = Address.objects.get(pk = 1)
+            us = User.objects.create_user(email = form.cleaned_data['email'], addr = adr, password = form.cleaned_data['password'], nume=form.cleaned_data['nume'])
             us.save()
             us.active = True
             return redirect('/')
@@ -104,4 +110,8 @@ class LogoutView(View):
         if request.user.is_authenticated:
             logout(request)
         return redirect('/')
+
+def checkout(request):
+
+    return redirect("/")
     
