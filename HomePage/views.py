@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.http import HttpResponse
 from datetime import datetime
 
 from .models import Produs
@@ -32,6 +33,7 @@ class FilterView(View):
         fav_list = sorted([obj for obj in Produs.objects.all()], key = lambda x: x.finalrating, reverse = True)[:3]
         form = self.form_class()
         return render(request, 'extend.html', {'lista': lista[((page-1)*3):(page*3)], 'favorites': fav_list, 'form': form, 'user': request.user, 'antepre': page-2, 'prev':page-1, 'curent': page, 'next': page + 1, 'last': len(lista)//3 + 1, 'pagination': False, 'nume': nume, 'mini': mini, 'maxi': maxi})
+    
     def post(self, request, nume, mini, maxi, page):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -47,6 +49,8 @@ class ProductView(View):
     
     def get(self, request, page):
         # for sorting purpose
+        if page > len(Produs.objects.all()) // 3 + 1:
+            return HttpResponse("404")
         lista = [obj for obj in Produs.objects.all()]
         fav_list = sorted(lista, key = lambda x: x.finalrating, reverse = True)[:3]
         if request.user.is_authenticated:
@@ -80,7 +84,9 @@ class ProductPage(View):
         return render(request, 'produs.html', {'url_img': url_img,'user': request.user, 'obj': obj, 'comms': lista, 'times': [0 for i in range(nr)]})
     
     def post(self, request, ident):
+        print(request.POST.keys())
         if "rating" in request.POST.keys():
+
             form = FormComm(request.POST)
             if form.is_valid():
                 if request.user.is_authenticated == False:
