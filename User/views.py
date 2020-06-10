@@ -19,6 +19,7 @@ class UserView(View):
     def get(self, request):
         form = AddrForm()
         addr = request.user.addr
+        print(addr.street)
         if request.user.is_authenticated:
             return render(request, 'extend_user.html', {'user': request.user, 'form' : form, 'addr' : addr})
         else:
@@ -112,6 +113,10 @@ class LogoutView(View):
         return redirect('/')
 
 def checkout(request):
-
-    return redirect("/")
+    try:
+        cart = Cart.objects.filter(nume = request.user.nume)
+        email(request.user.nume, cart, request.user.addr)
+    except Exception as e:
+        return HttpResponse(str(e))
+    return redirect('/')
     

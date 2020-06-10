@@ -68,7 +68,7 @@
       <div>
       
         <label for="id_street" style="padding-top: 70px"><h5>Strada</h5></label>
-        <input class="form-control" type="text" placeholder="Street" aria-label="Search" name="street" maxlength="50" id="id_street" value={{addr.street}}>
+        <input class="form-control" type="text" placeholder="Street" aria-label="Search" value={{addr.street}} name="street" maxlength="50" id="id_street" >
       </div>
       <div style="margin-top: 70px">
         <label for="id_street_number" style="padding-top: 180px"><h5>Numar</h5></label>
@@ -120,11 +120,11 @@
           </div>
           <div style="margin-top: 70px">
             <label for="id_old_passwd" style="padding-top: 180px"><h5>Parola veche</h5></label>
-            <input class="form-control" type="text" aria-label="Search" name="old_passwd" id="id_old_passwd">
+            <input class="form-control" type="password" aria-label="Search" name="old_passwd" id="id_old_passwd">
           </div>
           <div style="margin-top: 70px">
             <label for="id_passwd" style="padding-top: 290px"><h5>Parola noua</h5></label>
-            <input class="form-control" type="text" aria-label="Bloc" name="passwd" id="id_passwd">
+            <input class="form-control" type="password" aria-label="Bloc" name="passwd" id="id_passwd">
           </div>
           <button type="submit" class="btn btn-success">Modifica</button>
         </form>
