@@ -3,7 +3,7 @@ from User.models import CustomUser
 
 # Create your models here.
 class CustomOrder(models.Model):
-    tort = models.ImageField(blank = True, null = True, upload_to = 'products/custom/')
-    fig = models.BooleanField()
-    usr = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
-    
+    tort = models.ImageField(upload_to = 'products/custom/')
+    description = models.TextField(default = "")
+    quantity = models.IntegerField(default = 1)
+    date = models.DateField()

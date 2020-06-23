@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.views import View
 # Create your views here.
 from .forms import *
@@ -22,4 +23,4 @@ class Personalize(View):
             order.save()
             return redirect("/")
         else:
-            return self.get(request)
+            return HttpResponse("404")

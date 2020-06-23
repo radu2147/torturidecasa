@@ -4,4 +4,4 @@ from .models import CustomOrder
 class FilterForm(forms.ModelForm):
     class Meta:
         model = CustomOrder
-        fields = ('tort', 'fig')
+        fields = ('tort', 'description', 'quantity', 'date')

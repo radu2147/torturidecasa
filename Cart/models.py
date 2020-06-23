@@ -16,6 +16,7 @@ class Cart(ProdUserRel):
     pret = models.FloatField(default = 0)
     gram = models.IntegerField(default = 0)
     inscr = models.CharField(max_length = 30, default = "")
+    img_url = models.CharField(max_length = 100, null = True, blank = True)
     
     def get_subtotal(self):
         return (self.pret * self.quantity * 100) // 1 / 100

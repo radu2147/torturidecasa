@@ -8,7 +8,7 @@ from django.http.response import HttpResponse
 def add_to_cart(request, ident, gr, inscr):
     if request.user.is_authenticated:
         pr = Produs.objects.get(ident = ident)
-        c, created = Cart.objects.get_or_create(email = request.user.email, prod_id = ident, nume = pr.nume, pret = pr.pret, gram = gr, inscr = inscr)
+        c, created = Cart.objects.get_or_create(email = request.user.email, prod_id = ident, nume = pr.nume, pret = pr.pret, gram = gr, inscr = inscr, img_url = pr.image.url)
         if created == False:
             c.quantity += 1
             c.save()
