@@ -1,18 +1,88 @@
+<html>
+<head>
+
+<!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+
+</head>
+<body>
+{% load static %}
+  <nav class="navbar navbar-dark" style="min-height:100px">
+    <a class="navbar-brand" href="#" style="padding-left: 120px">
+      <img src="{% static 'tort.png' %}" height="30" class="d-inline-block align-top"
+        alt="mdb logo"> <div class="green-text">Torturi de casa Bacau</div>
+    </a>
+    <a class="navbar-brand" href="/user/myaccount/wish" data-toggle="tooltip" title="Wish List" style="margin-left: 650px"><i class="fa fa-heart" style="font-size:33px;color:#a5d6a7"></i></a>
+    <a class="navbar-brand" href="/user/myaccount/cart" data-toggle="tooltip" title="Cart" style="margin-right: 250px"><i style="font-size:33px;color:#a5d6a7" class="fas fa-shopping-cart"></i></a>
+  </nav>
+  <nav class="navbar navbar-expand-sm #a5d6a7 lighten-3", style="background-color:#a5d6a7", style="min-height:100px">
+    <!-- Brand -->
+    <a class="navbar-brand white-text" style="padding-left: 120px" href="{% url 'home' %}"><b>Home</b></a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link white-text" href="/personalizare/"><b>Personalizare</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link white-text" href="#"><b>Contact</b></a>
+      </li>
+    
+      <li class="nav-item" style="padding-left: 900px">
+        <a class="nav-link white-text" href="/user/register">
+          <b>Register</b>
+        </a>
+      </li>
+    <li class="nav-item" style="padding-left: 20px">
+        <a class="nav-link white-text" href="/user/login">
+          <b>Login</b>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
 {% load crispy_forms_tags %}
 
 <form method="post" novalidate>
     {% csrf_token %}
     <div class="row">
-        
+      <div class="col-4"></div>
       <div class="col-4">
-        {{ form.email|as_crispy_field }}
+        <div class="md-form">
+          <h2 class="green-text mb-5"><b>Inregistreaza-te</b></h2>
+          {% load socialaccount %}
+                  {% providers_media_js %}
+          <a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-block white-text btn-social btn-facebook" style="background-color:#3b5998;text-align:center">
+            <span><i class="fab fa-facebook-f"></i></span>
+            Inregistreaza-te cu facebook
+          </a>
+          <input class="form-control" placeholder="Adresa de email" type="email" name="email" maxlength="50" required="" id="id_email">        
+        </div>
+
+                        <!-- Material input password -->
+        <div class="md-form">
+                      
+          <input class="form-control" placeholder="Parola" type="password" name="password" maxlength="50" required="" id="id_password">
+        </div>
+        <div class="md-form">
+                      
+          <input class="form-control" placeholder="Nume" type="text" name="nume" maxlength="50" required id="id_nume">
+        </div>
+
+        <div class="text-center py-4 mt-3">
+          <button class="btn btn-success" type="submit">Creeaza cont</button>
+        </div>
       </div>
-	  <div class="col-2" type="password">
-        {{ form.password|as_crispy_field }}
-      </div>
-	<div class="col-2">
-        {{ form.nume|as_crispy_field }}
-      </div>
+      <div class="col-4"></div>
     </div>
-    <button type="submit" class="btn btn-success">Register</button>
   </form>
+</body>
+</html>

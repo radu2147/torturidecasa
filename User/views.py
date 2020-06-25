@@ -59,7 +59,10 @@ class UserViewWish(View):
             return render(request, 'wish_list.html', {'user': request.user, 'cos': WishList.objects.filter(email = request.user.email)})
         else:
             return redirect('/user/login')
-        
+    def post(self, request):
+        print("KO")
+        return redirect("/")
+
 class UserViewCart(View):
     def get(self, request):
         if request.user.is_authenticated:
