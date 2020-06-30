@@ -19,7 +19,7 @@ def add_to_cart(request, ident, gr, inscr):
 def add_to_wish(request, ident):
     if request.user.is_authenticated:
         pr = Produs.objects.get(ident = ident)
-        c, created = WishList.objects.get_or_create(email = request.user.email, prod_id = ident, nume = pr.nume, pret = pr.pret)
+        c, created = WishList.objects.get_or_create(email = request.user.email, prod_id = ident, nume = pr.nume, pret = pr.pret, img_url =  pr.image.url)
         return redirect('/user/myaccount/wish')
     else:
         return redirect('/user/login')

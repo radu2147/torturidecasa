@@ -23,9 +23,9 @@
     <!-- Grid column -->
     <div class="col-md-4 offset-md-1 mx-3 my-3">
 
-      <!-- Featured image -->
+      <!-- Featured image {% static 'tort.png' %}-->
       <div class="view overlay">
-        <img src="{% static "tort.png" %}" class="img-fluid" alt="Sample image for first version of blog listing">
+        <img src="/media/{{sub.image}}" class="img-fluid" alt="{{sub.nume}}">
         <a>
           <div class="mask rgba-white-slight"></div>
         </a>
@@ -89,9 +89,6 @@
 
 
 
-{% load crispy_forms_tags %}
-
-
 {% block formular %}
   <h2 class="mt-2 pb-4">Cauta-ti tortul pereche</h2>
 
@@ -129,7 +126,7 @@
       alt="mdb logo"> <div class="green-text">Torturi de casa Bacau</div>
   </a>
 	<a class="navbar-brand" href="/user/myaccount/wish" data-toggle="tooltip" title="Wish List" style="margin-left: 650px"><i class="fa fa-heart" style="font-size:33px;color:#a5d6a7"></i></a>
-	<a class="navbar-brand" href="/user/myaccount/wish" data-toggle="tooltip" title="Cart" style="margin-right: 250px"><i style="font-size:33px;color:#a5d6a7" class="fas fa-shopping-cart"></i></a>
+	<a class="navbar-brand" href="/user/myaccount/cart" data-toggle="tooltip" title="Cart" style="margin-right: 250px"><i style="font-size:33px;color:#a5d6a7" class="fas fa-shopping-cart"></i></a>
 </nav>
 <nav class="navbar navbar-expand-sm #a5d6a7 lighten-3", style="background-color:#a5d6a7", style="min-height:100px">
   <!-- Brand -->
@@ -193,7 +190,7 @@
 	{% if curent == last %}
 	<li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' antepen %}">{{ antepen }}</a></li>
     <li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
-	<li class="page-item ml-2"><a class="page-link white-text" style="background-color:#a5d6a7" href="{% url 'Homepage' last %}">{{ curent }}</a></li>
+	<li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' last %}">{{ curent }}</a></li>
 	{% elif curent == 1 %}
 	<li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">1</a></li>
     <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">2</a></li>
@@ -204,7 +201,7 @@
 	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">{{ next }}</a></li>
 	{% endif %}
 	{% if curent == last %}
-    	<li class="page-item ml-2"><a class="page-link disabled rounded-circle" href="#">-></a></li>
+    	<li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="#">-></a></li>
 	{% else %}
 		<li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' next %}">-></a></li>
 	{% endif %}
@@ -216,10 +213,22 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination">
 	{% if last == 1 %}
-		<li class="page-item"><a class="page-link disabled" href="">{{ curent }}</a></li>
+		<li class="page-item"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
 	{% elif last == 2 %}
-	<li class="page-item"><a class="page-link" href="">{{ curent }}</a></li>
-    <li class="page-item"><a class="page-link" href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
+  {% if prev == 0 %}
+      <li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
+  {% else %}
+    <li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
+  {% endif %}
+    {% if curent == last %}
+      <li class="page-item"><a  class="page-link" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
+      <li class="page-item"><a class="page-link  white-text rounded-circle"  style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+      <li class="page-item ml-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href=""><b>-></b></a></li>
+  {% else %}
+    <li class="page-item"><a  class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+      <li class="page-item"><a class="page-link"  href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
+    <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi next %}"><b>-></b></a></li>
+  {% endif %}
 	{% else %}
 	{% if prev == 0 %}
     	<li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
@@ -269,25 +278,10 @@
         <div class="mb-5 flex-center">
 
           <!-- Facebook -->
-          <a class="fb-ic">
+          <a class="fb-ic" href="https://www.facebook.com/torturidecasa.bacau">
             <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
           </a>
-          <!-- Twitter -->
-          <a class="tw-ic">
-            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
-          <!-- Google +-->
-          <a class="gplus-ic">
-            <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
-          <!--Linkedin -->
-          <a class="li-ic">
-            <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
-          <!--Instagram-->
-          <a class="ins-ic">
-            <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
+          
 
         </div>
       </div>

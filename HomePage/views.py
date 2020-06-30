@@ -30,8 +30,11 @@ class FilterView(View):
         for obj in Produs.objects.all():
                 if edit_distance_text(nume.lower(), obj.nume.lower()) <= 1 and mini <= obj.pret and maxi >= obj.pret:
                     lista.append(obj)
+        if page > len(lista) // 3 + 1:
+            return HttpResponse("404")
         fav_list = sorted([obj for obj in Produs.objects.all()], key = lambda x: x.finalrating, reverse = True)[:3]
         form = self.form_class()
+        lista.sort(key = lambda x: x.finalrating, reverse = True)
         return render(request, 'extend.html', {'lista': lista[((page-1)*3):(page*3)], 'favorites': fav_list, 'form': form, 'user': request.user, 'antepre': page-2, 'prev':page-1, 'curent': page, 'next': page + 1, 'last': len(lista)//3 + 1, 'pagination': False, 'nume': nume, 'mini': mini, 'maxi': maxi})
     
     def post(self, request, nume, mini, maxi, page):
@@ -52,6 +55,7 @@ class ProductView(View):
         if page > len(Produs.objects.all()) // 3 + 1:
             return HttpResponse("404")
         lista = [obj for obj in Produs.objects.all()]
+
         fav_list = sorted(lista, key = lambda x: x.finalrating, reverse = True)[:3]
         if request.user.is_authenticated:
             for el in lista:
@@ -78,13 +82,11 @@ class ProductPage(View):
     
     def get(self, request, ident):
         obj = Produs.objects.get(ident=ident)
-        url_img = obj.image.url
         lista = Comment.objects.filter(produs = obj)
         nr = int(obj.finalrating)
-        return render(request, 'produs.html', {'url_img': url_img,'user': request.user, 'obj': obj, 'comms': lista, 'times': [0 for i in range(nr)]})
+        return render(request, 'produs.html', {'url_img': obj.image.url,'user': request.user, 'obj': obj, 'comms': lista, 'times': [0 for i in range(nr)]})
     
     def post(self, request, ident):
-        print(request.POST.keys())
         if "rating" in request.POST.keys():
 
             form = FormComm(request.POST)
@@ -93,24 +95,25 @@ class ProductPage(View):
                     return redirect('/user/login')
                 else:
                     prd = Produs.objects.get(ident = ident)
-                    url_img = prd.image.url
-                    comm, created = Comment.objects.get_or_create(user = request.user, produs = prd)
-                    
-                    if created == True:
+                    try:
+                        comm = Comment.objects.get(user = request.user, produs = prd)
+                        prd.sum += form.cleaned_data['rating'] - comm.rating
+                        comm.text = form.cleaned_data['text']
+                        comm.date = timezone.now()
+                        comm.rating = form.cleaned_data['rating']
+                        comm.save()
+                        
+                    except:
+                        com = Comment.objects.create(user = request.user, produs = prd, text = form.cleaned_data['text'], date = timezone.now(), rating = form.cleaned_data['rating'])
+                        com.save()
                         prd.number += 1
                         prd.sum += form.cleaned_data['rating']
-                    else:
-                        prd.sum += form.cleaned_data['rating'] - comm.rating 
-                    comm.text = form.cleaned_data['text']
-                    comm.date = timezone.now()
-                    comm.rating = form.cleaned_data['rating']
+
                     prd.finalrating = prd.sum / prd.number
                     prd.save()
-                    comm.save()
                     nr = int(prd.finalrating)
                     lista = Comment.objects.filter(produs = prd)
-                    return render(request, 'produs.html', {'url_img': url_img, 'user': request.user, 'obj': prd, 'comms': lista, 'times': [0 for i in range(nr)]})
-        
+                    return render(request, 'produs.html', {'url_img': prd.image.url, 'user': request.user, 'obj': prd, 'comms': lista, 'times': [0 for i in range(nr)]})
             else:
                 self.get(request, ident)
         elif "gramaj" in request.POST.keys():
@@ -122,4 +125,4 @@ class ProductPage(View):
                     string = sub("\s", "_", form.cleaned_data['inscriptie'])
                     return redirect("Cart:add", ident = ident, gr = form.cleaned_data['gramaj'], inscr = string)
             else:
-                self.get(request, ident)
+                return self.get(request, ident)

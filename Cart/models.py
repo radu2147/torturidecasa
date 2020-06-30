@@ -31,4 +31,5 @@ class Cart(ProdUserRel):
 class WishList(ProdUserRel):
     pret = models.FloatField()
     nume = models.CharField(max_length = 50)
+    img_url = models.CharField(max_length = 100, null = True, blank = True)
     
