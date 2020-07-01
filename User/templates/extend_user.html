@@ -68,15 +68,15 @@
       <div>
       
         <label for="id_street" style="padding-top: 70px"><h5>Strada</h5></label>
-        <input class="form-control" type="text" placeholder="Street" aria-label="Search" value="{{addr.street}}" name="street" maxlength="50" id="id_street" >
+        <input class="form-control" type="text" aria-label="Search" value="{{addr.street}}" name="street" maxlength="50" id="id_street" >
       </div>
       <div style="margin-top: 70px">
         <label for="id_street_number" style="padding-top: 180px"><h5>Numar</h5></label>
-        <input class="form-control" type="number" placeholder="Numarul strazii" value={{addr.street_number}} aria-label="Search" min=0 name="street_number" id="id_street_number">
+        <input class="form-control" type="number" value={{addr.street_number}} aria-label="Search" min=0 name="street_number" id="id_street_number">
       </div>
       <div style="margin-top: 70px">
         <label for="id_bloc" style="padding-top: 290px"><h5>Bloc</h5></label>
-        <input class="form-control" type="number" placeholder="Bloc" value={{addr.bloc}} aria-label="Bloc" name="bloc" min=0 id="id_bloc">
+        <input class="form-control" type="number" value={{addr.bloc}} aria-label="Bloc" name="bloc" min=0 id="id_bloc">
       </div>
       
       
@@ -86,20 +86,20 @@
             <label for="id_scara"><h5>Scara</h5></label>
           </div>
 
-          <input class="form-control" placeholder="Scara" aria-label="Scara" type="text" name="scara" value={{addr.scara}} max_length = "1" id="id_scara">
+          <input class="form-control" aria-label="Scara" type="text" name="scara" value="{{addr.scara}}" max_length = "1" id="id_scara">
           
         </div>
         <div class="col-4 md-form mt-0">
           <div style="margin-bottom: 40px">
             <label for="id_ap"><h5>Apartament</h5></label>
           </div>
-          <input class="form-control" placeholder="Apartament" aria-label="Pret maxim" type="number" value={{addr.ap}} name="ap" min="0" step="any" id="id_ap">
+          <input class="form-control" aria-label="Pret maxim" type="number" value="{{addr.ap}}" name="ap" min="0" step="any" id="id_ap">
         </div>
         <div class="col-4 md-form mt-0">
           <div style="margin-bottom: 40px">
             <label for="id_phone_number"><h5>Telefon</h5></label>
           </div>
-          <input class="form-control" placeholder="Numar de telefon" aria-label="Numar de telefon" value={{addr.phone_number}} type="text" name="phone_number" max_length = "10" id="id_phone_number">
+          <input class="form-control" aria-label="Numar de telefon" value="{{addr.phone_number}}" type="text" name="phone_number" max_length = "10" id="id_phone_number">
         </div>
       </div>
        <button type="submit" class="btn btn-success">Modifica</button>

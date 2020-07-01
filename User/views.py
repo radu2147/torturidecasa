@@ -18,25 +18,24 @@ from .utils import *
 class UserView(View):
     def get(self, request):
         form = AddrForm()
-        addr = request.user.addr
-        print(addr.street)
-        if request.user.is_authenticated:
-            return render(request, 'extend_user.html', {'user': request.user, 'form' : form, 'addr' : addr})
-        else:
-            return redirect('/user/login')
+        if request.user.is_authenticated:     
+            return render(request, 'extend_user.html', {'user': request.user, 'form' : form, 'addr' : request.user.addr})
+        return redirect('/user/login')
     def post(self, request):
         if 'street' in request.POST.keys():
             form = AddrForm(request.POST)
-            
-            if form.is_valid():
-                obj, crt = Address.objects.get_or_create(street = form.cleaned_data['street'], phone_number = form.cleaned_data['phone_number'], street_number = form.cleaned_data['street_number'], bloc = form.cleaned_data['bloc'], scara = form.cleaned_data['scara'], ap = form.cleaned_data['ap'])
-                request.user.addr = obj
-                request.user.save()
-            addr = request.user.addr
-            return render(request, 'extend_user.html', {'user': request.user, 'form' : form, 'addr' : addr})
+            form.is_valid()
+            request.user.addr.street_number = form.cleaned_data['street_number']
+            request.user.addr.street = form.cleaned_data['street']
+            request.user.addr.bloc = form.cleaned_data['bloc']
+            request.user.addr.ap = form.cleaned_data['ap']
+            request.user.addr.scara = form.cleaned_data['scara']
+            request.user.addr.phone_number = form.cleaned_data['phone_number']    
+            request.user.addr.save()
+            request.user.save()
+            return self.get(request)
         elif 'old_passwd' in request.POST.keys():
             form = ChangeForm(request.POST)
-
             if form.is_valid():
                 if not request.user.check_password(form.cleaned_data['old_passwd']):
                     return HttpResponse("Passwords do not match")
@@ -66,7 +65,7 @@ class UserViewWish(View):
 class UserViewCart(View):
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, 'cart.html', {'user': request.user, 'cos': Cart.objects.filter(email = request.user.email), 'price' : Cart.get_total(request.user.email)})
+            return render(request, 'cart.html', {'user': request.user, 'cos': Cart.objects.filter(email = request.user.email), 'price' : Cart.get_total(request.user.email), 'checkout_ok': check_addr(request.user.addr)})
         else:
             return redirect('/user/login')
         
@@ -81,7 +80,7 @@ class RegisterView(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             User = get_user_model()
-            adr = Address.objects.get(pk = 1)
+            adr = Address.objects.create(street = "", phone_number = "", scara = "")
             us = User.objects.create_user(email = form.cleaned_data['email'], addr = adr, password = form.cleaned_data['password'], nume=form.cleaned_data['nume'])
             us.save()
             us.active = True

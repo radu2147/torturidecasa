@@ -16,7 +16,7 @@ def poz(value):
         )
 
 def scara(value):
-	if len(value) != 1 or value not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+	if len(value) > 1 or value not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
 		raise ValidationError(
             _('%(value)s is not a phone number'),
             params={'value': value},

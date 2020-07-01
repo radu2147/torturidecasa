@@ -3,6 +3,8 @@ import smtplib
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+def check_addr(addr):
+	return addr.street != "" and addr.street_number != None
 
 def email(nume, cart_obj, addr_obj):
 	try:

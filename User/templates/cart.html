@@ -21,6 +21,12 @@
 <!-- Material Design Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
 
+<script>
+	$(function () {
+$('[data-toggle="popover"]').popover()
+})
+</script>
+
 {% load static %}
 </head>
 <body>
@@ -120,7 +126,14 @@
 							<td><a href="/page/1" class="btn btn-warning"><i class="fa fa-angle-left" ></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong>Total {{price}} RON</strong></td>
-							<td><a href="/user/checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							{% if checkout_ok %}
+							<td><a href="/user/checkout" class="btn btn-success btn-block"> Checkout <i class="fa fa-angle-right"></i></a></td>
+							{% else %}
+							<td>
+							<button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Adresa invalida"
+  data-content="Pentru a putea trimite pe mail comanda trebuie sa aveti o adresa valida setata">Checkout</button>
+  							{% endif %}
+						</td>
 						</tr>
 					</tfoot>
 				</table>
