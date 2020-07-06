@@ -23,4 +23,6 @@ class Produs(models.Model):
     def __eq__(self, ot):
         return self.nume == ot.nume
 
+        
+
 

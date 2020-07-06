@@ -11,7 +11,7 @@ from .validators import *
 class Address(models.Model):
 	street = models.CharField(max_length = 100, blank = True, null = True)
 	phone_number = models.CharField(max_length = 10, validators=[phone], blank = True, null = True)
-	street_number = models.IntegerField(validators=[poz], blank = True, null = True)
+	street_number = models.IntegerField(validators=[poz], blank = True, null = True, default = None)
 	bloc = models.IntegerField(validators=[poz], blank = True, null = True)
 	scara = models.CharField(validators=[scara], max_length = 1, blank = True, null = True)
 	ap = models.IntegerField(validators=[poz], blank = True, null = True)

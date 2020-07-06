@@ -45,7 +45,7 @@ $('[data-toggle="popover"]').popover()
   <!-- Links -->
   <ul class="navbar-nav">
 	<li class="nav-item">
-      <a class="nav-link white-text" href="#"><b>Personalizare</b></a>
+      <a class="nav-link white-text" href="/personalizare/"><b>Personalizare</b></a>
     </li>
     <li class="nav-item">
       <a class="nav-link white-text" href="#"><b>Contact</b></a>
@@ -79,11 +79,8 @@ $('[data-toggle="popover"]').popover()
   </ul>
 </nav>
 <div class="container">
-	<p>
-		{{user.nume}}
-	</p>
-	
 	<div class="container">
+		<h1 style="font-family: Arial" class="green-text mt-4">Cosul dumneavoastra</h1>
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -101,7 +98,7 @@ $('[data-toggle="popover"]').popover()
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="/media/{{el.img_url}}"  class="img-fluid img-thumbnail" alt="..."/></div>
 									<div class="col-sm-10">
-										<h4 class="nomargin">{{el.nume}}</h4>
+										<a href="{% url 'Prod' el.prod_id %}"><h4 class="nomargin">{{el.nume}}</h4></a>
 									</div>
 								</div>
 							</td>
@@ -128,12 +125,18 @@ $('[data-toggle="popover"]').popover()
 							<td class="hidden-xs text-center"><strong>Total {{price}} RON</strong></td>
 							{% if checkout_ok %}
 							<td><a href="/user/checkout" class="btn btn-success btn-block"> Checkout <i class="fa fa-angle-right"></i></a></td>
+							{% elif len == 0 %}
+							<td>
+							<button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Cos gol"
+  data-content="Trebuie sa aveti minim un produs in cos">Checkout</button>
+  							</td>
 							{% else %}
 							<td>
 							<button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Adresa invalida"
   data-content="Pentru a putea trimite pe mail comanda trebuie sa aveti o adresa valida setata">Checkout</button>
+  							</td>
   							{% endif %}
-						</td>
+						
 						</tr>
 					</tfoot>
 				</table>
