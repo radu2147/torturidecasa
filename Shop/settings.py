@@ -26,7 +26,7 @@ SECRET_KEY = 'ua(44@*9n_j$76()$_)^iuimiex6n%i3&e8gl&^lku_%px*%z6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['radu2147.pythonanywhere.com']
 
 FILE_CHARSET = 'utf-8'
 
