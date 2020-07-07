@@ -167,13 +167,16 @@ ACCOUNT_EMAIL_REQUIRED=True
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
+STATICFILES_DIRS = ['C:/Users/RADU/Desktop/torturidecasa/static/']
 
 LOGIN_REDIRECT_URL = "/clean"
+
+LOGIN_URL = '/user/login'
 
 
 STATIC_URL = '/static/'
 MEDIA = '/media/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
