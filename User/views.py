@@ -61,13 +61,14 @@ class UserViewWish(View):
     def post(self, request):
         return redirect("/")
 
+
 class UserViewCart(View):
+
     def get(self, request):
         if request.user.is_authenticated:
             return render(request, 'cart.html', {'user': request.user, 'cos': Cart.objects.filter(email = request.user.email),'len':len(Cart.objects.filter(email = request.user.email)),  'price' : Cart.get_total(request.user.email), 'checkout_ok': check_addr(request.user.addr)})
-        else:
-            return redirect('/user/login')
-        
+        return redirect("/user/login")
+
 class RegisterView(View):
     def get(self, request):
         if request.user.is_authenticated:
