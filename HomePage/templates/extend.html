@@ -121,8 +121,8 @@
 
 {% block navbar %}
 <nav class="navbar navbar-dark" style="min-height:100px">
-  <a class="navbar-brand" href="#" style="padding-left: 120px">
-    <img src="{% static 'tort.png' %}" height="30" class="d-inline-block align-top"
+  <a class="navbar-brand" href="/" style="padding-left: 120px">
+    <img src="{% static 'tort.jpg' %}" height="30" class="d-inline-block align-top"
       alt="mdb logo"> <div class="green-text">Torturi de casa Bacau</div>
   </a>
 	<a class="navbar-brand" href="/user/myaccount/wish" data-toggle="tooltip" title="Wish List" style="margin-left: 650px"><i class="fa fa-heart" style="font-size:33px;color:#a5d6a7"></i></a>
@@ -173,43 +173,6 @@
 
 {% block pagination %}
 
-{% if pagination == True %}
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-	{% if last == 1 %}
-		<li class="page-item"><a class="page-link disabled" href="">{{ curent }}</a></li>
-	{% elif last == 2 %}
-	<li class="page-item"><a class="page-link" href="">{{ curent }}</a></li>
-    <li class="page-item"><a class="page-link" href="{% url 'Homepage' next %}">{{ next }}</a></li>
-	{% else %}
-	{% if prev == 0 %}
-    	<li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
-	{% else %}
-		<li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
-	{% endif %}
-	{% if curent == last %}
-	<li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' antepen %}">{{ antepen }}</a></li>
-    <li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
-	<li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' last %}">{{ curent }}</a></li>
-	{% elif curent == 1 %}
-	<li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">1</a></li>
-    <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">2</a></li>
-	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' 3 %}">3</a></li>
-	{% else %}
-	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
-    <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
-	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">{{ next }}</a></li>
-	{% endif %}
-	{% if curent == last %}
-    	<li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="#">-></a></li>
-	{% else %}
-		<li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' next %}">-></a></li>
-	{% endif %}
-	{% endif %}
-	<li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
-  </ul>
-</nav>
-{% else %}
 <nav aria-label="Page navigation example">
   <ul class="pagination">
 	{% if last == 1 %}
@@ -258,7 +221,6 @@
   </ul>
 </nav>
 
-{% endif %}
 {% endblock %}
 
 
