@@ -35,7 +35,7 @@ class FilterView(View):
         fav_list = sorted([obj for obj in Produs.objects.all()], key = lambda x: x.finalrating, reverse = True)[:3]
         form = self.form_class()
         lista.sort(key = lambda x: x.finalrating, reverse = True)
-        return render(request, 'extend.html', {'lista': lista[((page-1)*3):(page*3)], 'favorites': fav_list, 'form': form, 'user': request.user, 'antepre': page-2, 'prev':page-1, 'curent': page, 'next': page + 1, 'last': len(lista)//3 + 1, 'pagination': False, 'nume': nume, 'mini': mini, 'maxi': maxi})
+        return render(request, 'extend.html', {'lista': lista[((page-1)*3):(page*3)], 'favorites': fav_list, 'form': form, 'user': request.user, 'antepre': page-2, 'prev':page-1, 'curent': page, 'next': page + 1, 'last': (len(lista) - 1)//3 + 1, 'pagination': False, 'nume': nume, 'mini': mini, 'maxi': maxi})
     
     def post(self, request, nume, mini, maxi, page):
         form = self.form_class(request.POST)
@@ -66,7 +66,7 @@ class ProductView(View):
                     pass
         form = self.form_class()
         
-        return render(request, 'extend.html', {'lista': Produs.objects.all()[((page-1)*3):(page * 3)], 'favorites': fav_list, 'form': form, 'user':request.user, 'prev': page - 1,  'curent': page, 'next': (page + 1), 'last': (len(lista)//3 + 1), 'antepen': page-2, 'pagination': True})
+        return render(request, 'extend.html', {'lista': Produs.objects.all()[((page-1)*3):(page * 3)], 'favorites': fav_list, 'form': form, 'user':request.user, 'prev': page - 1,  'curent': page, 'next': (page + 1), 'last': ((len(lista) - 1)//3 + 1), 'antepen': page-2, 'pagination': True})
     
     def post(self, request, page):
         form = self.form_class(request.POST)
