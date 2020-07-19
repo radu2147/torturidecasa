@@ -8,9 +8,13 @@ from User.utils import check_addr
 
 
 class Personalize(View):
+    '''
+    Returns the personalize page if the user is logged in else returns the login page
+    '''
     def get(self, request):
         if request.user.is_authenticated:           
             form = FilterForm()
+            # checks the validity of a user's address
             return render(request, 'index.html', {'form' : form, 'user': request.user, 'checkout_ok': check_addr(request.user.addr)})
         else:
             return redirect("/user/login")

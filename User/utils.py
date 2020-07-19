@@ -6,6 +6,9 @@ from django.utils.translation import gettext_lazy as _
 def check_addr(addr):
 	return addr.street != "" and addr.street_number != None
 
+'''
+Using the smtplib to send an email to th admin with login info
+'''
 def email(nume, cart_obj, addr_obj):
 	try:
 	    server = smtplib.SMTP('smtp.gmail.com:587')
