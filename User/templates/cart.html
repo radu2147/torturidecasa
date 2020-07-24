@@ -84,33 +84,37 @@ $('[data-toggle="popover"]').popover()
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
-							<th style="width:50%">Product</th>
-							<th style="width:10%">Price</th>
-							<th style="width:8%">Quantity</th>
-							<th style="width:22%" class="text-center">Subtotal</th>
-							<th style="width:10%"></th>
+							<th style="width:40%">Produs</th>
+							<th style="width:12%">Pret</th>
+							<th style="width:10%">Nr bucati</th>
+							<th style="width:9%">Greutate</th>
+							<th style="width:15%">Mesaj</th>
+							<th style="width:18%" class="text-center">Subtotal</th>
+							
 						</tr>
 					</thead>
 					<tbody>
 					{% for el in cos %}
 						<tr>
-							<td data-th="Product">
+							<td data-th="Produs">
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="/media/{{el.img_url}}"  class="img-fluid img-thumbnail" alt="..."/></div>
 									<div class="col-sm-10">
-										<a href="{% url 'Prod' el.prod_id %}"><h4 class="nomargin">{{el.nume}}</h4></a>
+										<a href="{% url 'Prod' el.prod_id %}"><h4 class="nomargin">{{el.nume}}</h4></a><h6>{{el.date_of_order}}</h6>
 									</div>
 								</div>
 							</td>
-							<td data-th="Price">{{el.pret}}</td>
-							<td data-th="Quantity">
-								<a href="{% url 'Cart:del_one' el.prod_id el.gram el.inscr%}"><i class="fas fa-minus mr-2"></i></a>
+							<td data-th="Pret">{{el.pret}}</td>
+							<td data-th="Nr bucati">
+								<a href="{% url 'Cart:del_one' el.prod_id el.gram el.inscr el.date_of_order %}"><i class="fas fa-minus mr-2"></i></a>
 								{{el.quantity}}
-								<a href="{% url 'Cart:add' el.prod_id el.gram el.inscr %}"><i class="fas fa-plus ml-2"></i></a>
+								<a href="{% url 'Cart:add' el.prod_id el.gram el.inscr el.date_of_order %}"><i class="fas fa-plus ml-2"></i></a>
 							</td>
+							<td data-th="Greutate" class="text-center">{{el.gram}} {{el.get_measuring_unit}}</td>
+							<td data-th="Mesaj" >{{el.get_inscr}}</td>
 							<td data-th="Subtotal" class="text-center">{{el.get_subtotal}}</td>
 							<td class="actions" data-th="">
-								<a href="{% url 'Cart:del' el.prod_id el.gram el.inscr %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>								
+								<a href="{% url 'Cart:del' el.prod_id el.gram el.inscr el.date_of_order %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>								
 							</td>
 						</tr>
 					{% endfor %}

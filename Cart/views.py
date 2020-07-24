@@ -8,9 +8,9 @@ from django.http.response import HttpResponse
 # Create your views here.
 
 @login_required
-def add_to_cart(request, ident, gr, inscr):
+def add_to_cart(request, ident, gr, inscr, date):
     pr = Produs.objects.get(ident = ident)
-    c, created = Cart.objects.get_or_create(email = request.user.email, prod_id = ident, nume = pr.nume, pret = pr.pret, gram = gr, inscr = inscr, img_url = pr.image.url)
+    c, created = Cart.objects.get_or_create(email = request.user.email, prod_id = ident, date_of_order = date, nume = pr.nume, pret = pr.pret, gram = gr, inscr = inscr, img_url = pr.image.url)
     if created == False:
         c.quantity += 1
         c.save()
@@ -23,9 +23,9 @@ def add_to_wish(request, ident):
     return redirect('/user/myaccount/wish')
  
 @login_required     
-def remove_from_cart(request, ident, gr, inscr):
+def remove_from_cart(request, ident, gr, inscr, date):
     try:
-        c = Cart.objects.get(email = request.user.email, prod_id = ident, gram = gr, inscr = inscr)
+        c = Cart.objects.get(email = request.user.email, prod_id = ident, gram = gr, inscr = inscr, date_of_order = date)
         c.delete()
     except:
         return HttpResponse("Error")
@@ -42,8 +42,8 @@ def remove_from_wish(request, ident):
     
     
 @login_required
-def remove_one_from_cart(request, ident, gr, inscr):
-    c = Cart.objects.get(email = request.user.email, prod_id = ident, gram = gr, inscr = inscr)
+def remove_one_from_cart(request, ident, gr, inscr, date):
+    c = Cart.objects.get(email = request.user.email, prod_id = ident, gram = gr, inscr = inscr, date_of_order = date)
     if c.quantity == 1:
         c.delete()
     else:

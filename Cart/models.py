@@ -17,9 +17,16 @@ class Cart(ProdUserRel):
     gram = models.IntegerField(default = 0)
     inscr = models.CharField(max_length = 30, default = "")
     img_url = models.CharField(max_length = 100, null = True, blank = True)
+    date_of_order = models.DateField(default = '2020-09-24')
     
     def get_subtotal(self):
-        return (self.pret * self.quantity * 100) // 1 / 100
+        return (self.pret * self.quantity * self.gram * 100) // 1 / 100
+
+    def get_inscr(self):
+        return " ".join(self.inscr.split('_'))
+
+    def get_measuring_unit(self):
+        return Produs.objects.get(ident = self.prod_id).measure_unit
     
     @staticmethod
     def get_total(email):

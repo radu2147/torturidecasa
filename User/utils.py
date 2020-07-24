@@ -9,7 +9,7 @@ def check_addr(addr):
 '''
 Using the smtplib to send an email to th admin with login info
 '''
-def email(nume, cart_obj, addr_obj):
+def email(nume, cart_obj, addr_obj, date):
 	try:
 	    server = smtplib.SMTP('smtp.gmail.com:587')
 	    server.ehlo()
@@ -25,7 +25,8 @@ def email(nume, cart_obj, addr_obj):
 	   	Bloc {} 
 	   	Scara {} 
 	   	Aparament {}
-	    """.format(nume, addr_obj.street, addr_obj.street_number, addr_obj.bloc, addr_obj.scara, addr_obj.ap)
+	   	Data de livrare {}
+	    """.format(nume, addr_obj.street, addr_obj.street_number, addr_obj.bloc, addr_obj.scara, addr_obj.ap, date)
 	    server.sendmail('radudjango@gmail.com', "andrei.crisan2147@gmail.com", message)
 	    server.quit()
 	except Exception as e:

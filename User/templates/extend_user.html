@@ -57,10 +57,17 @@
 {% endblock %}
 
 {% block addr %}
-
-  
  
-  <div class="row ml-3">
+<h1> 
+  <strong class="green-text">
+    Panoul de control
+  </strong>
+</h1>
+<h5 style="margin-top: 20px">Salut, {{user.nume}}. Acesta este panoul de control de unde iti poti modifica datele
+  personale, precum si adresa de livrare.
+</h5>
+  <div style="margin-top: 60px">
+      <div class="row ml-3">
     <div class="col-5 md-form mt-0">
       <h2 class="mt-2 pb-4 green-text mb-5">Modifica-ti adresa</h2>
       <form method="post" novalidate id="myForm" >
@@ -112,26 +119,26 @@
         Modifica-ti datele
       </h2>
       <div class="mt-5">
-        <form method="post" id="data" novalidate>
+        
+        <form method="post" id="data" name="formchange" onsubmit="return valid()">
           {% csrf_token %}
           <div>
             <label for="id_nume" style="padding-top: 70px"><h5>Nume</h5></label>
             <input class="form-control" type="text" aria-label="Search" name="nume" maxlength="50" id="id_nume">
           </div>
           <div style="margin-top: 70px">
-            <label for="id_old_passwd" style="padding-top: 180px"><h5>Parola veche</h5></label>
-            <input class="form-control" type="password" aria-label="Search" name="old_passwd" id="id_old_passwd">
+            <label for="id_old_passwd" style="padding-top: 180px"><h5>Parola actuala</h5></label>
+            <input class="form-control" type="password" aria-label="Search" name="old_passwd" id="id_old_passwd" required>
           </div>
           <div style="margin-top: 70px">
             <label for="id_passwd" style="padding-top: 290px"><h5>Parola noua</h5></label>
             <input class="form-control" type="password" aria-label="Bloc" name="passwd" id="id_passwd">
           </div>
-          <button type="submit" class="btn btn-success">Modifica</button>
+          <input type="submit" value="Modifica" class="btn btn-success">
         </form>
       </div>
     </div> 
-
-    
+  </div>
   </div>
 
 {% endblock %}

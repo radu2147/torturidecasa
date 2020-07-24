@@ -78,8 +78,10 @@ class UserViewCart(View):
     '''
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, 'cart.html', {'user': request.user, 'cos': Cart.objects.filter(email = request.user.email),'len':len(Cart.objects.filter(email = request.user.email)),  'price' : Cart.get_total(request.user.email), 'checkout_ok': check_addr(request.user.addr)})
+            form = FinalOrder()
+            return render(request, 'cart.html', {'user': request.user, 'form' : form,  'cos': Cart.objects.filter(email = request.user.email),'len':len(Cart.objects.filter(email = request.user.email)),  'price' : Cart.get_total(request.user.email), 'checkout_ok': check_addr(request.user.addr)})
         return redirect("/user/login")
+        
 
 class RegisterView(View):
     def get(self, request):
@@ -129,10 +131,11 @@ class LogoutView(View):
         return redirect('/')
 
 
-'''
-Tries to send an email with the information about the products to the admin
-'''
+
 def checkout(request):
+    '''
+    Tries to send an email with the information about the products to the admin
+    '''
     try:
         cart = Cart.objects.filter(nume = request.user.nume)
         email(request.user.nume, cart, request.user.addr)

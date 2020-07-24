@@ -22,23 +22,29 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
 
 {% load static %}
+<script>
+    function valid(){
+        var x = document.forms["formchange"]["passwd"].value;
+        var name = document.forms["formchange"]["nume"].value;
+        if(x.length < 8 && x.length > 0){
+            alert("Parola noua trebuie sa aiba macar 8 caractere");
+            return false;
+        }
+        if(name.length > 0 && name.length < 3){
+        	alert("Numele trebuie sa aiba minim 3 caractere");
+            return false;
+        }
+    }
+</script>
+
+
 </head>
 <body>
 {% block navbar %}
 {% endblock %}
 <div class="container" style="font-family: Arial">
-<h1> 
-	<strong class="green-text">
-		Panoul de control
-	</strong>
-</h1>
-<h5 style="margin-top: 20px">Salut, {{user.nume}}. Acesta este panoul de control de unde iti poti modifica datele
-	personale, precum si adresa de livrare.
-</h5>
-	<div style="margin-top: 60px">
-		{% block addr %}
-		{% endblock %}
-	</div>
+	{% block addr %}
+	{% endblock %}
 </div>
 {% block footer %}
 {% endblock %}

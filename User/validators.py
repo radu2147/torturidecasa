@@ -26,4 +26,4 @@ def valid_pass(value):
 	return len(value) > 7
 
 def valid_name(value):
-	return len(value) > 0
+	return len(value) > 2
