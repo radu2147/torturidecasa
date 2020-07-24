@@ -123,6 +123,6 @@ class ProductPage(View):
                     return redirect('/user/login')
                 else:
                     string = sub("\s", "_", form.cleaned_data['inscriptie'])
-                    return redirect("Cart:add", ident = ident, gr = form.cleaned_data['gramaj'], inscr = string)
+                    return redirect("Cart:add", ident = ident, gr = form.cleaned_data['gramaj'], inscr = string, date = form.cleaned_data['date_of_order'])
             else:
                 return self.get(request, ident)
