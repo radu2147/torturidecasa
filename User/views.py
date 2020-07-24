@@ -138,7 +138,10 @@ def checkout(request):
     try:
         cart = Cart.objects.filter(nume = request.user.nume)
         email(request.user.nume, cart, request.user.addr)
+        return redirect('/user/confirmation')
     except Exception as e:
         return HttpResponse(str(e))
-    return redirect('/')
     
+    
+def confirmation_show(request):
+    return render(request, 'confirmaion_page.html', {})
