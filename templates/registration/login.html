@@ -58,10 +58,11 @@
                   <p class="h4 text-center py-4">Sign in</p>
 	                {% load socialaccount %}
                   {% providers_media_js %}
-                    <a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-block white-text btn-social btn-facebook" style="background-color:#3b5998;text-align:center">
-                      <span><i class="fab fa-facebook-f"></i></span>
-                        Logheaza-te cu Facebook
-                    </a>
+                    <div class="socialaccount_ballot">
+                      <ul class="socialaccount_providers">
+                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                      </ul>
+                    </div>
                     <!-- Material input text -->
                     <div class="md-form">
                       <i class="fa fa-user prefix grey-text"></i>

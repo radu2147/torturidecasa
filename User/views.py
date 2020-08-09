@@ -1,16 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, get_user_model, logout
 
 from .forms import *
-from .validators import valid_pass, valid_name
 from .models import *
-from HomePage.models import Produs
 from Cart.models import *
-from Cart.forms import *
 from Personalize.models import *
 from .utils import *
 
@@ -128,8 +123,6 @@ class LogoutView(View):
         if request.user.is_authenticated:
             logout(request)
         return redirect('/')
-
-
 
 def checkout(request):
     '''
