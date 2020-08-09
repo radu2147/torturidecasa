@@ -20,14 +20,14 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('HomePage.urls'), name = 'home'),
+    path('', include('HomePage.urls'), name='home'),
     path('user/', include('User.urls')),
-    path('', include('Cart.urls', namespace = 'Cart')),
+    path('', include('Cart.urls', namespace='Cart')),
     path('', include('Social.urls')),
     path('accounts/', include('allauth.urls')),
     path('personalizare/', include('Personalize.urls'))
 ]
 
-if settings.DEBUG == True:
+if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA, document_root=settings.MEDIA_ROOT)
