@@ -17,8 +17,8 @@ class UserView(View):
     def get(self, request):
         form = AddrForm()
         if request.user.is_authenticated:     
-            return render(request, 'extend_user.html', {'user': request.user, 'form' : form, 'addr' : request.user.addr})
-        return redirect('/user/login')
+            return render(request, 'extend_user.html', {'user': request.user, 'form': form, 'addr': request.user.addr})
+        return redirect('/accounts/login')
 
     def post(self, request):
         # checks which form data is being retrieved by form's keys
@@ -62,9 +62,8 @@ class UserViewWish(View):
     '''
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, 'wish_list.html', {'user': request.user, 'cos': WishList.objects.filter(email = request.user.email)})
-        else:
-            return redirect('/user/login')
+            return render(request, 'wish_list.html', {'user': request.user, 'cos': WishList.objects.filter(email=request.user.email)})
+        return redirect('/accounts/login')
 
 
 class UserViewCart(View):
@@ -74,49 +73,8 @@ class UserViewCart(View):
     def get(self, request):
         if request.user.is_authenticated:
             return render(request, 'cart.html', {'user': request.user,  'cos': Cart.objects.filter(email = request.user.email),'len':len(Cart.objects.filter(email = request.user.email)),  'price' : Cart.get_total(request.user.email), 'checkout_ok': check_addr(request.user.addr)})
-        return redirect("/user/login")
-        
+        return redirect("/accounts/login")
 
-class RegisterView(View):
-    def get(self, request):
-        if request.user.is_authenticated:
-            return redirect("/user/myaccount")
-        form = RegisterForm()
-        return render(request, 'registration/register.html', {'form': form})
-        
-    def post(self, request):
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            User = get_user_model()
-            adr = Address.objects.create(street = "", phone_number = "", scara = "")
-            us = User.objects.create_user(email = form.cleaned_data['email'], addr = adr, password = form.cleaned_data['password'], nume=form.cleaned_data['nume'])
-            us.save()
-            us.active = True
-            return redirect('/')
-        else:
-            form = RegisterForm()
-            return render(request, 'registration/register.html', {'form': form})
-        
-class LoginView(View):
-    def get(self, request):
-        if request.user.is_authenticated:
-            return redirect("/user/myaccount")
-        form = LoginForm()
-        return render(request, 'registration/login.html', {'form': form})
-        
-    def post(self, request):
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            # authenticates the user and creates a session
-            user = authenticate(request, email = form.cleaned_data['email'], password = form.cleaned_data['password'])
-            if user is not None:
-                login(request, user)    
-                return redirect('/')
-            else:
-                return HttpResponse("No existing account with this credentials")
-        else:
-            form = LoginForm()
-            return render(request, 'registration/login.html', {'form': form})
 class LogoutView(View):
     def get(self, request):
         # logs out the user
@@ -129,7 +87,7 @@ def checkout(request):
     Tries to send an email with the information about the products to the admin
     '''
     try:
-        cart = Cart.objects.filter(nume = request.user.nume)
+        cart = Cart.objects.filter(nume=request.user.nume)
         email(request.user.nume, cart, request.user.addr)
         return redirect('/user/confirmation')
     except Exception as e:

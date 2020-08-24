@@ -1,7 +1,5 @@
-
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
-from .models import CustomUser
+from .models import CustomUser, Address
 from django import forms
 from .validators import *
 
@@ -20,13 +18,14 @@ class CustomUserChangeForm(UserChangeForm):
         
 
 class RegisterForm(forms.Form):
-    email = forms.EmailField(max_length = 50)
-    password = forms.CharField(max_length = 50, widget=forms.PasswordInput)
-    nume = forms.CharField(max_length = 50)
-    
-class LoginForm(forms.Form):
-    email = forms.EmailField(max_length = 50)
-    password = forms.CharField(max_length = 50, widget=forms.PasswordInput)
+    email = forms.EmailField(max_length=50)
+    nume = forms.CharField(max_length=50)
+
+    def signup(self, request, user):
+        adr = Address.objects.create(street="", phone_number="", scara="")
+        user.nume = self.cleaned_data['nume']
+        user.addr = adr
+        user.save()
 
 class AddrForm(forms.Form):
     street = forms.CharField(max_length = 100, required = False)

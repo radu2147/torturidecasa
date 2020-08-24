@@ -18,6 +18,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.Personalize.as_view(), name = 'Personalizare'),
+    path('', views.Personalize.as_view(), name='Personalizare'),
 
 ]

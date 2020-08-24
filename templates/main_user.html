@@ -40,14 +40,12 @@
 
 </head>
 <body>
-{% block navbar %}
-{% endblock %}
+{% include 'navbar.html' %}
 <div class="container" style="font-family: Arial">
 	{% block addr %}
 	{% endblock %}
 </div>
-{% block footer %}
-{% endblock %}
+{% include 'footer.html' %}
 </body>
 
 </html>

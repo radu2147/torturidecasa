@@ -26,7 +26,7 @@ SECRET_KEY = 'ua(44@*9n_j$76()$_)^iuimiex6n%i3&e8gl&^lku_%px*%z6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['radu2147.pythonanywhere.com', 'localhost']
+ALLOWED_HOSTS = ['radu2147.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 FILE_CHARSET = 'utf-8'
 
@@ -78,8 +78,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'social_django.context_processors.backends', # this
-                'social_django.context_processors.login_redirect', # and this
+                'social_django.context_processors.backends',  # this
+                'social_django.context_processors.login_redirect',  # and this
             ],
         },
     },
@@ -164,8 +164,13 @@ SOCIALACCOUNT_PROVIDERS = \
 SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED=True
-
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_SIGNUP_FORM_CLASS = 'User.forms.RegisterForm'
 
 STATICFILES_DIRS = ['C:/Users/RADU/Desktop/torturidecasa/static/']
 
@@ -177,6 +182,5 @@ LOGIN_URL = '/user/login'
 STATIC_URL = '/static/'
 MEDIA = '/media/'
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

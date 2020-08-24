@@ -10,6 +10,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+{% load static %}
   <script>
   $(function () {
   $('[data-toggle="tooltip"]').tooltip()
@@ -18,8 +19,7 @@
 </head>
 <body>
 
-  {% block navbar %}
-  {% endblock %}
+{% include 'navbar.html' %}
 
 <div class="container">
   <div style="background-color: #FFFFFF">
@@ -34,7 +34,7 @@
 
       <!-- Featured image -->
           <div class="view overlay">
-            <img src="https://mdbootstrap.com/img/Photos/Others/laptop-sm.jpg" class="img-fluid" alt="Sample image for first version of blog listing">
+            <img src="{% static 'Mama_si_tata.jpg' %}" class="img-fluid" alt="Sample image for first version of blog listing">
             <a>
               <div class="mask rgba-white-slight"></div>
           </a>
@@ -46,7 +46,7 @@
         <div class="col-md-7 text-md-left ml-3 mt-3">
 
       <!-- Excerpt -->
-          <a href="#!" class="green-text">
+          <a href="#" class="green-text">
             <h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i> Work</h6>
           </a>
 
@@ -101,7 +101,6 @@
 
 
 </div>
-{% block footer %}
-{% endblock %}
+{% include 'footer.html' %}
 </body>
 </html>

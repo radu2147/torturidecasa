@@ -14,13 +14,11 @@
 </li>
 {% endfor %}
 {% endif %}
-<li>
-  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}} btn btn-block white-text btn-social btn-facebook" style="background-color:#3b5998;text-align:center"
-     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-      <span>
-          <i class="fab fa-facebook-f"> </i>
-              Logheaza-te cu {{provider.name}}
-      </span>
-  </a>
-</li>
+<a title="{{provider.name}}" class="socialaccount_provider {{provider.id}} btn btn-block white-text btn-social btn-facebook" style="background-color:#3b5998;text-align:center"
+   href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+    <span>
+        <i class="fab fa-facebook-f"> </i>
+        Logheaza-te cu {{provider.name}}
+    </span>
+</a>
 {% endfor %}

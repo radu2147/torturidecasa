@@ -32,21 +32,56 @@
   {% csrf_token %}
   <div class="md-form">
     <i class="fa fa-user prefix grey-text"></i>
-    <input class="form-control" placeholder="Your name" type="email" name="email" maxlength="50" required="" id="id_email">
+    <input class="form-control" placeholder="Your name" type="email" name="login" maxlength="50" required="" id="id_login">
   </div>
-
-                    <!-- Material input password -->
+  <!-- Material input password -->
   <div class="md-form">
     <i class="fa fa-lock prefix grey-text"></i>
     <input class="form-control" placeholder="Your password" type="password" name="password" maxlength="50" required="" id="id_password">
   </div>
+  <div class="text-center py-4 mt-3">
+    <button class="primaryAction btn btn-success" type="submit">Log in</button>
+  </div>
+  <a href="/user/register"><h6 class="green-text" style="text-align: center; font-size: 12px"> Nu aveti cont? </h6></a>
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-success" type="submit">{% trans "Sign In" %}</button>
+
 </form>
 
 {% endblock %}
 
+{% block footer %}
+<footer class="page-footer font-small m mt-4" style="background-color:#a5d6a7">
 
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Grid row-->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-12 py-5">
+        <div class="mb-5 flex-center">
+
+          <!-- Facebook -->
+          <a class="fb-ic" href="https://www.facebook.com/torturidecasa.bacau">
+            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+
+
+        </div>
+      </div>
+      <!-- Grid column -->
+	<div>
+    	<p>© Radu Baston</p>
+    </div>
+    </div>
+    <!-- Grid row-->
+
+  </div>
+  <!-- Footer Elements -->
+
+
+ </footer>
+{% endblock %}

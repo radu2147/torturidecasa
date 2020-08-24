@@ -17,7 +17,7 @@ class Personalize(View):
             # checks the validity of a user's address
             return render(request, 'index.html', {'form' : form, 'user': request.user, 'checkout_ok': check_addr(request.user.addr)})
         else:
-            return redirect("/user/login")
+            return redirect("/accounts/login")
         
         
     def post(self, request):
