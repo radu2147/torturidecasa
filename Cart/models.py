@@ -26,17 +26,16 @@ class Cart(ProdUserRel):
         return " ".join(self.inscr.split('_'))
 
     def get_measuring_unit(self):
-        return Produs.objects.get(ident = self.prod_id).measure_unit
+        return Produs.objects.get(ident=self.prod_id).measure_unit
     
     @staticmethod
     def get_total(email):
         price = 0
-        for el in Cart.objects.filter(email = email):
+        for el in Cart.objects.filter(email=email):
             price += el.get_subtotal()
         return (price * 100) // 1 / 100
     
 class WishList(ProdUserRel):
     pret = models.FloatField()
-    nume = models.CharField(max_length = 50)
-    img_url = models.CharField(max_length = 100, null = True, blank = True)
-    
+    nume = models.CharField(max_length=50)
+    img_url = models.CharField(max_length=100, null=True, blank=True)

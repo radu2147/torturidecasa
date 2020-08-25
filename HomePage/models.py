@@ -5,15 +5,15 @@ class Produs(models.Model):
     """
     Atributele produsului
     """
-    ident = models.IntegerField()
-    nume = models.CharField(max_length = 50)
+    ident = models.IntegerField(unique=True)
+    nume = models.CharField(max_length=50)
     pret = models.FloatField()
     descr = models.TextField()
-    sum = models.IntegerField(default = 0)
-    number = models.IntegerField(default = 0)
-    finalrating = models.FloatField(default = 0)
-    image = models.ImageField(blank = True, null = True, upload_to = 'products/img/')
-    measure_unit = models.CharField(default = 'kg', max_length = 5)
+    sum = models.IntegerField(default=0, editable=False)
+    number = models.IntegerField(default=0, editable=False)
+    finalrating = models.FloatField(default=0, editable=False)
+    image = models.ImageField(blank=True, null=True, upload_to='products/img/')
+    measure_unit = models.CharField(default='kg', max_length=5)
     
     def show_rating(self):
         return self.finalrating * 100 // 1 / 100

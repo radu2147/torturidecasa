@@ -18,14 +18,14 @@ def add_to_cart(request, ident, gr, inscr, date):
 
 @login_required 
 def add_to_wish(request, ident):
-    pr = Produs.objects.get(ident = ident)
-    c, created = WishList.objects.get_or_create(email = request.user.email, prod_id = ident, nume = pr.nume, pret = pr.pret, img_url =  pr.image.url)
+    pr = Produs.objects.get(ident=ident)
+    c, created = WishList.objects.get_or_create(email=request.user.email, prod_id=ident, nume=pr.nume, pret=pr.pret, img_url=pr.image.url)
     return redirect('/user/myaccount/wish')
  
 @login_required     
 def remove_from_cart(request, ident, gr, inscr, date):
     try:
-        c = Cart.objects.get(email = request.user.email, prod_id = ident, gram = gr, inscr = inscr, date_of_order = date)
+        c = Cart.objects.get(email=request.user.email, prod_id=ident, gram=gr, inscr=inscr, date_of_order=date)
         c.delete()
     except:
         return HttpResponse("Error")

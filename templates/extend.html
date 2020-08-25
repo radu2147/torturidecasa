@@ -113,52 +113,102 @@
 
 {% block pagination %}
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-	{% if last == 1 %}
-		<li class="page-item"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
-	{% elif last == 2 %}
-  {% if prev == 0 %}
-      <li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
-  {% else %}
-    <li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
-  {% endif %}
-    {% if curent == last %}
-      <li class="page-item"><a  class="page-link" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
-      <li class="page-item"><a class="page-link  white-text rounded-circle"  style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
-      <li class="page-item ml-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href=""><b>-></b></a></li>
-  {% else %}
-    <li class="page-item"><a  class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
-      <li class="page-item"><a class="page-link"  href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
-    <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi next %}"><b>-></b></a></li>
-  {% endif %}
-	{% else %}
-	{% if prev == 0 %}
-    	<li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
-	{% else %}
-		<li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
-	{% endif %}
-	{% if curent == last %}
-	<li class="page-item ml-2"><a class="page-link" href="{% url 'filter' nume mini maxi antepre %}">{{antepre}}</a></li>
-    <li class="page-item ml-2"><a class="page-link" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
-	<li class="page-item ml-2"><a class="page-link white-text" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
-	{% elif curent == 1 %}
-	<li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">1</a></li>
-    <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi next %}">2</a></li>
-	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi 3 %}">3</a></li>
-	{% else %}
-	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
-    <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
-	<li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
-	{% endif %}
-	{% if curent == last %}
-    	<li class="page-item ml-2"><a class="page-link disabled rounded-circle" href="">-></a></li>
-	{% else %}
-		<li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi next %}"><b>-></b></a></li>
-	{% endif %}
-	{% endif %}
-	<li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
-  </ul>
-</nav>
+{% if is_filtered %}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if last == 1 %}
+            <li class="page-item"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+        {% elif last == 2 %}
+      {% if prev == 0 %}
+          <li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
+      {% else %}
+        <li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi prev %}"> <-</a></li>
+      {% endif %}
+        {% if curent == last %}
+          <li class="page-item"><a  class="page-link" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
+          <li class="page-item"><a class="page-link  white-text rounded-circle"  style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+          <li class="page-item ml-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href=""><b>-></b></a></li>
+      {% else %}
+        <li class="page-item"><a  class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+          <li class="page-item"><a class="page-link"  href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
+        <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi next %}"><b>-></b></a></li>
+      {% endif %}
+        {% else %}
+        {% if prev == 0 %}
+            <li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
+        {% else %}
+            <li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi prev %}"> <-</a></li>
+        {% endif %}
+        {% if curent == last %}
+        <li class="page-item ml-2"><a class="page-link" href="{% url 'filter' nume mini maxi antepre %}">{{antepre}}</a></li>
+        <li class="page-item ml-2"><a class="page-link" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
+        <li class="page-item ml-2"><a class="page-link white-text" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+        {% elif curent == 1 %}
+        <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">1</a></li>
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi next %}">2</a></li>
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi 3 %}">3</a></li>
+        {% else %}
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi prev %}">{{ prev }}</a></li>
+        <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'filter' nume mini maxi next %}">{{ next }}</a></li>
+        {% endif %}
+        {% if curent == last %}
+            <li class="page-item ml-2"><a class="page-link disabled rounded-circle" href="">-></a></li>
+        {% else %}
+            <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi next %}"><b>-></b></a></li>
+        {% endif %}
+        {% endif %}
+        <li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
+      </ul>
+    </nav>
+{% else %}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if last == 1 %}
+            <li class="page-item"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+        {% elif last == 2 %}
+      {% if prev == 0 %}
+          <li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
+      {% else %}
+        <li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
+      {% endif %}
+        {% if curent == last %}
+          <li class="page-item"><a  class="page-link" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
+          <li class="page-item"><a class="page-link  white-text rounded-circle"  style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+          <li class="page-item ml-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href=""><b>-></b></a></li>
+      {% else %}
+        <li class="page-item"><a  class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+          <li class="page-item"><a class="page-link"  href="{% url 'Homepage' next %}">{{ next }}</a></li>
+        <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' next %}"><b>-></b></a></li>
+      {% endif %}
+        {% else %}
+        {% if prev == 0 %}
+            <li class="page-item mr-2"><a class="page-link disabled white-text rounded-circle" style="background-color:#a5d6a7" href="#"><-</a></li>
+        {% else %}
+            <li class="page-item mr-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' prev %}"> <-</a></li>
+        {% endif %}
+        {% if curent == last %}
+        <li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' antepre %}">{{antepre}}</a></li>
+        <li class="page-item ml-2"><a class="page-link" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
+        <li class="page-item ml-2"><a class="page-link white-text" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+        {% elif curent == 1 %}
+        <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">1</a></li>
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">2</a></li>
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' 3 %}">3</a></li>
+        {% else %}
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' prev %}">{{ prev }}</a></li>
+        <li class="page-item ml-2"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
+        <li class="page-item ml-2"><a class="page-link rounded-circle" href="{% url 'Homepage' next %}">{{ next }}</a></li>
+        {% endif %}
+        {% if curent == last %}
+            <li class="page-item ml-2"><a class="page-link disabled rounded-circle" href="">-></a></li>
+        {% else %}
+            <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' next %}"><b>-></b></a></li>
+        {% endif %}
+        {% endif %}
+        <li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
+      </ul>
+    </nav>
+{% endif %}
 
 {% endblock %}

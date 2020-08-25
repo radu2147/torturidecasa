@@ -36,7 +36,7 @@ class FilterView(View):
                       {'lista': lista[((page - 1) * 3):(page * 3)], 'favorites': fav_list, 'form': form,
                        'user': request.user, 'antepre': page - 2, 'prev': page - 1, 'curent': page, 'next': page + 1,
                        'last': (len(lista) - 1) // 3 + 1, 'pagination': False, 'nume': nume, 'mini': mini,
-                       'maxi': maxi})
+                       'maxi': maxi, 'is_filtered': True})
 
     def post(self, request, nume, mini, maxi, page):
         form = self.form_class(request.POST)
@@ -72,7 +72,7 @@ class ProductView(View):
         return render(request, 'extend.html',
                       {'lista': Produs.objects.all()[((page - 1) * 3):(page * 3)], 'favorites': fav_list, 'form': form,
                        'user': request.user, 'prev': page - 1, 'curent': page, 'next': (page + 1),
-                       'last': ((len(lista) - 1) // 3 + 1), 'antepen': page - 2, 'pagination': True})
+                       'last': ((len(lista) - 1) // 3 + 1), 'antepen': page - 2, 'is_filtered': False})
 
     def post(self, request, page):
         form = self.form_class(request.POST)
