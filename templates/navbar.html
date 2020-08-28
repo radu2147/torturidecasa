@@ -1,10 +1,20 @@
 {% load static %}
 <style>
-    a[title="Cart"]{
-        margin-right: 300px;
+    @media screen and (min-width:600px){
+        a[title="Cart"]{
+            margin-right: 300px;
+        }
+        a[title="Wish List"]{
+            margin-left: 530px;
+        }
     }
-    a[title="Wish List"]{
-        margin-left: 530px;
+    @media screen and (max-width:600px){
+        a[title="Cart"]{
+            margin-right: 0px;
+        }
+        a[title="Wish List"]{
+            margin-left: 30px;
+        }
     }
     nav a i{
         font-size:33px;
@@ -16,14 +26,31 @@
     nav:nth-of-type(2){
         background-color:#a5d6a7;
     }
-    nav:first-of-type > a{
-        padding-left: 120px;
+    @media screen and (min-width:600px){
+        nav:first-of-type > a{
+            padding-left: 120px;
+        }
     }
-    ul.navbar-nav > li:nth-of-type(2){
-        padding-left: 900px;
+    @media screen and (min-width:600px){
+        ul.navbar-nav > li:nth-of-type(2){
+            padding-left: 900px;
+        }
+        ul.navbar-nav > li:nth-of-type(3){
+            padding-left: 20px;
+        }
     }
-    ul.navbar-nav > li:nth-of-type(3){
-        padding-left: 20px;
+    @media screen and (min-width:600px){
+        nav:nth-of-type(2) > a:first-child{
+            padding-left: 120px;
+        }
+        nav span {
+            display: none;
+        }
+    }
+    @media screen and (max-width:600px){
+        nav li{
+            display: none;
+        }
     }
 
 
@@ -38,9 +65,16 @@
 </nav>
 <nav class="navbar navbar-expand-sm #a5d6a7 lighten-3">
   <!-- Brand -->
-  <a class="navbar-brand white-text" style="padding-left: 120px" href="{% url 'home' %}"><b>Home</b></a>
-
-  <!-- Links -->
+    <a class="navbar-brand white-text" href="{% url 'home' %}"><b>Home</b></a>
+    <span><a class="nav-link white-text" href="/personalizare/"><b>Personalizare</b></a></span>
+    {% if user.is_anonymous %}
+        <span><a class="nav-link white-text" href="/accounts/signup"><b>Register</b></a></span>
+        <span><a class="nav-link white-text" href=/accounts/login><b>Login</b></a></span>
+    {% else %}
+        <span><a class="nav-link white-text" href="/user/myaccount"><b>{{user.nume}}</b></a></span>
+        <span><a class="nav-link white-text" href="/user/logout">Logout</a></span>
+    {% endif %}
+      <!-- Links -->
   <ul class="navbar-nav">
 	<li class="nav-item">
       <a class="nav-link white-text" href="/personalizare/"><b>Personalizare</b></a>
@@ -71,4 +105,5 @@
     </li>
 	{% endif %}
   </ul>
+
 </nav>
