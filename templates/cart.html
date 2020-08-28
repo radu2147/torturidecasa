@@ -28,12 +28,18 @@ $('[data-toggle="popover"]').popover()
 </script>
 
 {% load static %}
+
+<style>
+	h1:first-of-type{
+		font-family: Arial;
+	}
+</style>
 </head>
 <body>
 {% include 'navbar.html' %}
 <div class="container">
 	<div class="container">
-		<h1 style="font-family: Arial" class="green-text mt-4">Cosul dumneavoastra</h1>
+		<h1 class="green-text mt-4">Cosul dumneavoastra</h1>
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
