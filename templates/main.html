@@ -22,9 +22,28 @@
       #myForm{
         width:100%;
       }
+      .dis-row{
+        display: flex;
+        flex-direction: row;
+      }
+      .dis-col-8{
+        flex: 2 0 40%;
+      }
+      .dis-col-4{
+        flex: 1 0 20%;
+        margin-left:20px;
+      }
       @media screen and (max-width:600px){
-        div.list-group p.mb-2{
-          display: none
+        .dis-row{
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-evenly;
+
+        }
+        div.dis-col-4{
+          order: -100;
+          width:100%;
+
         }
       }
     </style>
@@ -74,14 +93,14 @@
 <!-- News jumbotron -->
   </div>
 <hr>
-<div style="background-color: #ffffff">
+<div style="background-color: #ffffff" id="content">
 	
-  <div class="row">
-      <div class = "col-8">
+  <div class="dis-row">
+      <div class = "dis-col-8">
         {% block content %}
         {% endblock %}
       </div>
-      <div class="col-4">
+      <div class="dis-col-4">
         {% block formular %}
         {% endblock %}
         <hr>
