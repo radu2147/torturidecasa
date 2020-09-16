@@ -15,7 +15,7 @@ class Personalize(View):
         if request.user.is_authenticated:           
             form = FilterForm()
             # checks the validity of a user's address
-            return render(request, 'index.html', {'form' : form, 'user': request.user, 'checkout_ok': check_addr(request.user.addr)})
+            return render(request, 'index.html', {'form': form, 'user': request.user, 'checkout_ok': check_addr(request.user.addr)})
         else:
             return redirect("/accounts/login")
         
@@ -23,7 +23,7 @@ class Personalize(View):
     def post(self, request):
         form = FilterForm(request.POST, request.FILES)
         if form.is_valid():
-            order = form.save(commit = False)
+            order = form.save(commit=False)
             order.usr = request.user
             order.save()
             email(request.user.nume, order, request.user.addr)

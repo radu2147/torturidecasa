@@ -172,7 +172,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_SIGNUP_FORM_CLASS = 'User.forms.RegisterForm'
 
-STATICFILES_DIRS = ['C:/Users/RADU/Desktop/torturidecasa/static/']
+STATICFILES_DIRS = ['/static/']
 
 LOGIN_REDIRECT_URL = "/clean"
 
