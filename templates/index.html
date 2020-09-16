@@ -26,13 +26,9 @@
   {% if checkout_ok %}
     <button type="submit" class="btn btn-success">Trimite</button>
   {% else %}
-    <button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Adresa invalida"
-  data-content="Pentru a putea trimite pe mail comanda trebuie sa aveti o adresa valida setata">Trimite</button>
-  <script>
-  $(function () {
-$('[data-toggle="popover"]').popover()
-})
-</script>
+    <a role="button" class="btn btn-success" data-toggle="popover" data-placement="left" title="Adresa invalida"
+  data-content="Pentru a putea trimite pe mail comanda trebuie sa aveti o adresa valida setata">Trimite</a>
+
   {% endif %}
 </form>
 

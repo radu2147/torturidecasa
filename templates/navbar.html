@@ -1,10 +1,11 @@
 {% load static %}
 <style>
     @media screen and (min-width:600px){
-        a[title="Cart"]{
+        .cart.cart{
             margin-right: 300px;
         }
-        a[title="Wish List"]{
+
+        .wish{
             margin-left: 530px;
         }
     }
@@ -60,12 +61,12 @@
     <img src="{% static 'tort.jpg' %}" height="30" class="d-inline-block align-top"
       alt="mdb logo"> <div class="green-text">Torturi de casa Bacau</div>
   </a>
-	<a class="navbar-brand" href="/user/myaccount/wish" data-toggle="tooltip" title="Wish List"><i class="fa fa-heart"></i></a>
-	<a class="navbar-brand" href="/user/myaccount/cart" data-toggle="tooltip" title="Cart"><i class="fas fa-shopping-cart"></i></a>
+	<a class="navbar-brand wish" href="/user/myaccount/wish" data-toggle="tooltip" title="Wish List"><i class="fa fa-heart"></i></a>
+	<a class="navbar-brand cart" href="/user/myaccount/cart" data-toggle="tooltip" title="Cart"><i class="fas fa-shopping-cart"></i></a>
 </nav>
 <nav class="navbar navbar-expand-sm #a5d6a7 lighten-3">
   <!-- Brand -->
-    <a class="navbar-brand white-text" href="{% url 'home' %}"><b>Home</b></a>
+    <a class="navbar-brand white-text" href="{% url 'home' %}"><b>Acasa</b></a>
     <span><a class="nav-link white-text" href="/personalizare/"><b>Personalizare</b></a></span>
     {% if user.is_anonymous %}
         <span><a class="nav-link white-text" href="/accounts/signup"><b>Register</b></a></span>
