@@ -17,6 +17,9 @@ class Produs(models.Model):
     
     def show_rating(self):
         return self.finalrating * 100 // 1 / 100
+
+    def desrciption_show(self):
+        return self.descr[:47] + '...'
     
     def __str__(self):
         return self.nume

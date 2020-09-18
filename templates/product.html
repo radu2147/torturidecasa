@@ -85,9 +85,7 @@
 					<h2 class="green-text"> Descriere </h2>
 					<p style="font-family: Akrobat"><b>{{obj.descr}}</b></p>
 
-					<p style="font-family: Akrobat"><b>Melt the chocolate and butter in a metal or glass bowl placed over a pot of barely simmering water, stirring constantly. Once melted, remove the bowl from the heat and let cool slightly.</b></p>
-					<p style="font-family: Akrobat"><b>Bake the torte for 35 minutes. As soon as you remove the cake from the oven it will begin to fall, but it is supposed to. Cool the cake to room temperature then chill for at least 2 hours before slicing and serving. The cake should be stored refrigerated and sliced while cold, but if you can, allow the cake slices to sit out at room temperature for 10 to 20 minutes before serving to really let that melt-inyour- mouth warmth build.</b></p>
-				</div>
+					</div>
 				<div class="col-3"></div>
 				<div class="justify-content-center col-3" style="margin-top: 100px">
 					<h3 style="family-font: Akrobat">Rating:</h3>
@@ -138,7 +136,7 @@
 				<div class="card mt-4">
 					<div class="row">
 				 		<div class="col-8" style="ml-2">
-				 			<p>Published by {{el.user.nume}} on {{el.date}} </p>
+				 			<p>Publicat de {{el.user.nume}} pe {{el.date}} </p>
 						</div>
 						<div class="col-2"></div>
 						<div class="col-2 green-text">{{el.rating}}
@@ -153,7 +151,7 @@
 				</div>
 
 			{% empty %}
-				<p> Nu exista commuri</p>
+				<p> Nu exista recenzii</p>
 			{% endfor %}
 		</div>
 
