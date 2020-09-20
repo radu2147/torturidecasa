@@ -87,18 +87,20 @@ $('[data-toggle="popover"]').popover()
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong>Total {{price}} RON</strong></td>
 							{% if checkout_ok %}
-							<td><a href="/user/checkout" class="btn btn-success btn-block"> Checkout <i class="fa fa-angle-right"></i></a></td>
-							{% elif len == 0 %}
-							<td>
-							<button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Cos gol"
-  data-content="Trebuie sa aveti minim un produs in cos">Checkout</button>
-  							</td>
+							<td><a href="/user/checkout_form_cart" class="btn btn-success btn-block"> Checkout <i class="fa fa-angle-right"></i></a></td>
 							{% else %}
-							<td>
-							<button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Adresa invalida"
-  data-content="Pentru a putea trimite pe mail comanda trebuie sa aveti o adresa valida setata">Checkout</button>
-  							</td>
-  							{% endif %}
+								{% if len == 0 %}
+								<td>
+								<button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Cos gol"
+	  data-content="Trebuie sa aveti minim un produs in cos">Checkout</button>
+								</td>
+								{% else %}
+								<td>
+								<button type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Adresa invalida"
+	  data-content="Pentru a putea trimite pe mail comanda trebuie sa aveti o adresa valida setata">Checkout</button>
+								</td>
+								{% endif %}
+							{% endif %}
 						
 						</tr>
 					</tfoot>
