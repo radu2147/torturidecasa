@@ -50,7 +50,7 @@ def email_cart_products(nume, cart_obj, addr_obj):
             Subpret: {}
             Data livrarii: {}
             '''.format(el.nume, el.inscr, el.gram, el.get_subtotal(), el.date_of_order)
-        send_mail("COMANDA {}".format('nume'), message, 'radudjango@gmail.com', ["andrei.crisan2147@gmail.com"])
+        send_mail("COMANDA {}".format(nume), message, 'radudjango@gmail.com', ["andrei.crisan2147@gmail.com"])
     except Exception as e:
         raise ValidationError(
                 _('%(value)s \nerror sending the email'),
