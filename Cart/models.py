@@ -11,13 +11,13 @@ class ProdUserRel(models.Model):
         return self.email + str(self.prod_id)
 
 class Cart(ProdUserRel):
-    quantity = models.IntegerField(default = 1)
-    nume = models.CharField(max_length = 50, default = "")
-    pret = models.FloatField(default = 0)
-    gram = models.IntegerField(default = 0)
-    inscr = models.CharField(max_length = 30, default = "")
-    img_url = models.CharField(max_length = 100, null = True, blank = True)
-    date_of_order = models.DateField(default = '2020-09-24')
+    quantity = models.IntegerField(default=1)
+    nume = models.CharField(max_length=50, default="")
+    pret = models.FloatField(default=0)
+    gram = models.IntegerField(default=0)
+    inscr = models.CharField(max_length=30, default="")
+    img_url = models.CharField(max_length=100, null=True, blank=True)
+    date_of_order = models.DateField(default='2020-09-24')
     
     def get_subtotal(self):
         return (self.pret * self.quantity * self.gram * 100) // 1 / 100
@@ -36,6 +36,7 @@ class Cart(ProdUserRel):
         return (price * 100) // 1 / 100
     
 class WishList(ProdUserRel):
+
     pret = models.FloatField()
     nume = models.CharField(max_length=50)
     img_url = models.CharField(max_length=100, null=True, blank=True)

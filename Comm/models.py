@@ -5,7 +5,7 @@ from User.models import *
 
 # Create your models here.
 class Comment(models.Model):
-    user = models.ForeignKey(CustomUser, related_name = "user", on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, related_name="user", on_delete=models.CASCADE)
     produs = models.ForeignKey(Produs, related_name="produs", on_delete=models.CASCADE)
     date = models.DateField()
     rating = models.IntegerField()

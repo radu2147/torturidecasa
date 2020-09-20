@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib.auth.decorators import login_required
 
 from .forms import *
 from .models import *
@@ -72,7 +73,7 @@ class UserViewCart(View):
     '''
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, 'cart.html', {'user': request.user,  'cos': Cart.objects.filter(email = request.user.email),'len':len(Cart.objects.filter(email = request.user.email)),  'price' : Cart.get_total(request.user.email), 'checkout_ok': check_addr(request.user.addr)})
+            return render(request, 'cart.html', {'user': request.user,  'cos': Cart.objects.filter(email=request.user.email),'len': len(Cart.objects.filter(email=request.user.email)),  'price' : Cart.get_total(request.user.email), 'checkout_ok': check_addr(request.user.addr) and len(Cart.objects.filter(email=request.user.email)) > 0})
         return redirect("/accounts/login")
 
 class LogoutView(View):
@@ -82,17 +83,16 @@ class LogoutView(View):
             logout(request)
         return redirect('/')
 
-def checkout(request):
-    '''
-    Tries to send an email with the information about the products to the admin
-    '''
+@login_required
+def checkout_from_cart(request):
     try:
-        cart = Cart.objects.filter(nume=request.user.nume)
-        email(request.user.nume, cart, request.user.addr)
+        cart = Cart.objects.filter(email=request.user.email)
+        email_cart_products(request.user.nume, cart, request.user.addr)
+        cart.delete()
         return redirect('/user/confirmation')
     except Exception as e:
         return HttpResponse(str(e))
-    
-    
+
+@login_required
 def confirmation_show(request):
     return render(request, 'confirmaion_page.html', {})

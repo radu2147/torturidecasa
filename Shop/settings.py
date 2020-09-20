@@ -172,6 +172,13 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_SIGNUP_FORM_CLASS = 'User.forms.RegisterForm'
 
+SERVER_EMAIL = 'radudjango@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'radudjango@gmail.com'
+
 STATICFILES_DIRS = ['/static/']
 
 LOGIN_REDIRECT_URL = "/clean"
