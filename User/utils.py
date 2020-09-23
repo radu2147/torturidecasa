@@ -5,8 +5,9 @@ from django.utils.translation import gettext_lazy as _
 def check_addr(addr):
     return addr.street != "" and addr.street_number != None
 
-def email_cart_products(user, cart_obj, addr_obj):
+def email_cart_products(user, cart_obj):
     try:
+        addr_obj = user.addr
         message = """Subject: Comanda \n\n
         Hei! Ati primit o comanda:
         De la: {}

@@ -26,7 +26,7 @@ class Personalize(View):
             order = form.save(commit=False)
             order.usr = request.user
             order.save()
-            email(request.user, order, request.user.addr)
+            email(request.user, order)
             return redirect('/user/confirmation')
         else:
             return HttpResponse("Formular invalid")
