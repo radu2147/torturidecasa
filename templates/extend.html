@@ -47,7 +47,7 @@
       <p class="font-weight-normal overflow-hidden">{{sub.desrciption_show}}</p>
       <p class="font-weight-normal"><b>{{sub.pret}} RON </b></p>
 
-      <a href="{% url 'Prod' sub.ident %}" class="btn btn-success">Read more</a>
+      <a href="{% url 'Prod' sub.ident %}" class="btn btn-success">Mai mult</a>
 
     </div>
     <!-- Grid column -->
@@ -66,7 +66,7 @@
 <div class="list-group">
 
 <div class="list-group-item list-group-item-action flex-column align-items-start">
-  <h5 class="mb-2 h5">Most popular</h5>
+  <h5 class="mb-2 h5">Top deserturi</h5>
 </div>
 {% for el in favorites %}
   <a href="{% url 'Prod' el.ident %}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -105,7 +105,7 @@
         <input class="form-control" placeholder="Pret maxim" aria-label="Pret maxim" type="number" name="maxprice" min="0" step="any" id="id_maxprice">
       </div>
 	</div>
-    <button type="submit" class="btn btn-success">Search</button>
+    <button type="submit" class="btn btn-success">Cauta</button>
   </form>
 
 {% endblock %}
@@ -158,7 +158,7 @@
             <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'filter' nume mini maxi next %}"><b>-></b></a></li>
         {% endif %}
         {% endif %}
-        <li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
+        <li class="page-item"><a class="page-link disabled" href="">{{curent}} din {{last}}</a></li>
       </ul>
     </nav>
 {% else %}
@@ -206,7 +206,7 @@
             <li class="page-item ml-2"><a class="page-link  white-text rounded-circle" style="background-color:#a5d6a7" href="{% url 'Homepage' next %}"><b>-></b></a></li>
         {% endif %}
         {% endif %}
-        <li class="page-item"><a class="page-link disabled" href="">{{curent}} out of {{last}}</a></li>
+        <li class="page-item"><a class="page-link disabled" href="">{{curent}} din {{last}}</a></li>
       </ul>
     </nav>
 {% endif %}

@@ -41,7 +41,6 @@ def email_cart_products(nume, cart_obj, addr_obj):
         Aparament {}
         """.format(nume, addr_obj.street, addr_obj.street_number, addr_obj.bloc, addr_obj.scara, addr_obj.ap)
         message += '\nCART\n\n'
-        print(len(cart_obj))
         for el in list(cart_obj):
             message += '''
             Nume: {}

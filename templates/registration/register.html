@@ -57,11 +57,11 @@
         <div class="md-form">
           <h2 class="green-text mb-5"><b>Inregistreaza-te</b></h2>
           {% load socialaccount %}
-                  {% providers_media_js %}
-          <a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-block white-text btn-social btn-facebook" style="background-color:#3b5998;text-align:center">
-            <span><i class="fab fa-facebook-f"></i></span>
-            Inregistreaza-te cu facebook
-          </a>
+           <div class="socialaccount_ballot">
+                      <ul class="socialaccount_providers">
+                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                      </ul>
+           </div>
           <input class="form-control" placeholder="Adresa de email" type="email" name="email" maxlength="50" required="" id="id_email">        
         </div>
 

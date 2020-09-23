@@ -93,8 +93,9 @@ WSGI_APPLICATION = 'Shop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cakes',
+        
     }
 }
 
@@ -174,19 +175,21 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'User.forms.RegisterForm'
 
 SERVER_EMAIL = 'radudjango@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'radudjango@gmail.com'
 
-STATICFILES_DIRS = ['/static/']
+STATICFILES_DIRS = ['static/']
 
 LOGIN_REDIRECT_URL = "/clean"
 
-LOGIN_URL = '/user/login'
+LOGIN_URL = '/accounts/login'
 
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

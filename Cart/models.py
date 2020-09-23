@@ -15,9 +15,9 @@ class Cart(ProdUserRel):
     nume = models.CharField(max_length=50, default="")
     pret = models.FloatField(default=0)
     gram = models.IntegerField(default=0)
-    inscr = models.CharField(max_length=30, default="")
+    inscr = models.CharField(max_length=20, default="")
     img_url = models.CharField(max_length=100, null=True, blank=True)
-    date_of_order = models.DateField(default='2020-09-24')
+    date_of_order = models.DateField()
     
     def get_subtotal(self):
         return (self.pret * self.quantity * self.gram * 100) // 1 / 100

@@ -1,9 +1,9 @@
 from django import forms
 
 class FilterForm(forms.Form):
-    nume = forms.CharField(label = "Nume: ", max_length = 50, required = False)
-    minprice = forms.FloatField(label = "Pret minim", required = False, min_value = 0)
-    maxprice = forms.FloatField(label = "Pret maxim", required = False, min_value = 0)
+    nume = forms.CharField(label="Nume: ", max_length=50, required=False)
+    minprice = forms.FloatField(label="Pret minim", required=False, min_value=0)
+    maxprice = forms.FloatField(label="Pret maxim", required=False, min_value=0)
     
     def clean(self):
         cleaned_data = super().clean()
