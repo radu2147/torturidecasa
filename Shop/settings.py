@@ -95,7 +95,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cakes',
-        
+        'USER': 'RADU',
+        'PASSWORD': 'dovle2147',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -175,7 +178,7 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'User.forms.RegisterForm'
 
 SERVER_EMAIL = 'radudjango@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
+EMAIL_HOST_PASSWORD ='dovle2147'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -193,4 +196,7 @@ STATIC_URL = '/static/'
 MEDIA = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1359884140887669'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET ='af1fc61c96064370729d5a1f7b7d1b13' #app key
 
