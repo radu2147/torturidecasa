@@ -87,7 +87,7 @@ class LogoutView(View):
 def checkout_from_cart(request):
     try:
         cart = Cart.objects.filter(email=request.user.email)
-        email_cart_products(request.user.nume, cart, request.user.addr)
+        email_cart_products(request.user, cart, request.user.addr)
         cart.delete()
         return redirect('/user/confirmation')
     except Exception as e:
