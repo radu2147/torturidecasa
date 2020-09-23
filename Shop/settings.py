@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 from django.conf.global_settings import FILE_CHARSET
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -184,7 +185,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'radudjango@gmail.com'
 
-STATICFILES_DIRS = ['static/']
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 LOGIN_REDIRECT_URL = "/clean"
 
@@ -192,7 +193,7 @@ LOGIN_URL = '/accounts/login'
 
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -200,3 +201,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SOCIAL_AUTH_FACEBOOK_KEY = '1359884140887669'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET ='af1fc61c96064370729d5a1f7b7d1b13' #app key
 
+django_heroku.settings(locals())
