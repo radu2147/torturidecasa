@@ -44,10 +44,10 @@ class UserView(View):
                     return HttpResponse("Passwords do not match")
                 if valid_pass(form.cleaned_data['passwd']):
                     # changes the user's password and reauthenticates the user back
-                    obj = CustomUser.objects.get(email = request.user.email)
+                    obj = CustomUser.objects.get(email=request.user.email)
                     request.user.set_password(form.cleaned_data['passwd'])
                     request.user.save()
-                    obj = authenticate(request, email = obj.email, password = form.cleaned_data['passwd'])
+                    obj = authenticate(request, email=obj.email, password=form.cleaned_data['passwd'])
                     login(request, obj)
                 if valid_name(form.cleaned_data['nume']):
                     # changes the user's name
