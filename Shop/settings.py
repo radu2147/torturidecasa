@@ -136,12 +136,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-SESSION_COOKIE_SECURE = True
-
-CSRF_COOKIE_SECURE = True
-
-SECURE_SSL_REDIRECT = True
-
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
