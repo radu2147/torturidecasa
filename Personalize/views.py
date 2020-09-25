@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
+import cloudinary.uploader
 # Create your views here.
 from .forms import *
 from .utils import *

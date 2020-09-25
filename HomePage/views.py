@@ -92,7 +92,7 @@ class ProductPage(View):
         obj = Produs.objects.get(ident=ident)
         lista = Comment.objects.filter(produs=obj)
         nr = int(obj.finalrating)
-        return render(request, 'product.html', {'url_img': obj.image.url,
+        return render(request, 'product.html', {
                                                'user': request.user,
                                                'obj': obj,
                                                'comms': lista,
