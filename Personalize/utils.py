@@ -22,7 +22,7 @@ def email(user, pers_obj):
         Descriere {}
         Cantitate {}
         Data de livrare {}
-        """.format(user.nume, user.email, addr_obj.street, addr_obj.street_number, addr_obj.bloc, addr_obj.scara, addr_obj.ap, pers_obj.tort, pers_obj.description, pers_obj.quantity, pers_obj.date)
+        """.format(user.nume, user.email, addr_obj.street, addr_obj.street_number, addr_obj.bloc, addr_obj.scara, addr_obj.ap, pers_obj.cake_image.url, pers_obj.description, pers_obj.quantity, pers_obj.date)
         send_mail("COMANDA {}".format('nume'), message, 'radudjango@gmail.com', ["andrei.crisan2147@gmail.com"])
     except Exception as e:
         raise ValidationError(
