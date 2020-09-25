@@ -10,7 +10,7 @@ from django.http.response import HttpResponse
 @login_required
 def add_to_cart(request, ident, gr, inscr, date):
     pr = Produs.objects.get(ident = ident)
-    c, created = Cart.objects.get_or_create(email = request.user.email, prod_id = ident, date_of_order = date, nume = pr.nume, pret = pr.pret, gram = gr, inscr = inscr, img_url = pr.image.url)
+    c, created = Cart.objects.get_or_create(email = request.user.email, prod_id = ident, date_of_order = date, nume = pr.nume, pret = pr.pret, gram = gr, inscr = inscr, img_url = pr.cake_image.url)
     if created == False:
         c.quantity += 1
         c.save()
@@ -19,7 +19,7 @@ def add_to_cart(request, ident, gr, inscr, date):
 @login_required 
 def add_to_wish(request, ident):
     pr = Produs.objects.get(ident=ident)
-    c, created = WishList.objects.get_or_create(email=request.user.email, prod_id=ident, nume=pr.nume, pret=pr.pret, img_url=pr.image.url)
+    c, created = WishList.objects.get_or_create(email=request.user.email, prod_id=ident, nume=pr.nume, pret=pr.pret, img_url=pr.cake_image.url)
     return redirect('/user/myaccount/wish')
  
 @login_required     
