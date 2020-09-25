@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from Shop.settings import EMAIL_HOST_USER
 
 def check_addr(addr):
     return addr.street != "" and addr.street_number != None
@@ -28,7 +29,7 @@ def email_cart_products(user, cart_obj):
             Subpret: {}
             Data livrarii: {}
             '''.format(el.nume, el.inscr, el.gram, el.get_subtotal(), el.date_of_order)
-        send_mail("COMANDA {}".format(user.nume), message, 'radudjango@gmail.com', ["andrei.crisan2147@gmail.com"])
+        send_mail("COMANDA {}".format(user.nume), message, EMAIL_HOST_USER, ["andrei.crisan2147@gmail.com"])
     except Exception as e:
         raise ValidationError(
                 _('%(value)s \nerror sending the email'),
