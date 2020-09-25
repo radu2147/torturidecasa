@@ -127,7 +127,7 @@ class ProductPage(View):
                     nr = int(prd.finalrating)
                     lista = Comment.objects.filter(produs=prd)
                     return render(request, 'product.html',
-                                  {'url_img': prd.image.url, 'user': request.user, 'obj': prd, 'comms': lista,
+                                  {'user': request.user, 'obj': prd, 'comms': lista,
                                        'times': [0 for _ in range(nr)]})
             else:
                 return self.get(request, ident)
