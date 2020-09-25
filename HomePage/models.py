@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Produs(models.Model):
@@ -12,7 +13,7 @@ class Produs(models.Model):
     sum = models.IntegerField(default=0, editable=False)
     number = models.IntegerField(default=0, editable=False)
     finalrating = models.FloatField(default=0, editable=False)
-    image = models.ImageField(blank=True, null=True, upload_to='products/img/')
+    cake_image = CloudinaryField('avatar', null=True)
     measure_unit = models.CharField(default='kg', max_length=5)
     
     def show_rating(self):
