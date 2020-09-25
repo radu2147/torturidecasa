@@ -17,7 +17,7 @@ psycopg2==2.8.6
 pycparser==2.20
 PyJWT==1.7.1
 cloudinary==1.22.0
-django-cloudinary-storage==0.2.3
+django-cloudinary-storage==0.3.0
 python3-openid==3.2.0
 pytz==2020.1
 requests==2.24.0
