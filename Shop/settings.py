@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount',
+    'cloudinary_storage',
+    'cloudinary',
     'User',
     'Cart',
     'Comm'
@@ -102,6 +104,13 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'htrlerdoj',
+    'API_KEY': '552147323933463',
+    'API_SECRET': 'h9ecPuLUFs1TXxMdqF8_BMOToNU',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Password validation
