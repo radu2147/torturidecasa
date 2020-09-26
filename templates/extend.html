@@ -118,11 +118,14 @@
 {% block pagination %}
 
 {% if is_filtered %}
-    {% if last == 0 %}
-      <li class="page-item"><a class="page-link disabled" href="">0 din 0</a></li>
-    {% else %}
+
+
     <nav aria-label="Page navigation example">
+
       <ul class="pagination">
+        {% if last == 0 %}
+           <li class="page-item"><a class="page-link disabled" href="">0 din 0</a></li>
+        {% else %}
         {% if last == 1 %}
             <li class="page-item"><a class="page-link white-text rounded-circle" style="background-color:#a5d6a7" href="">{{ curent }}</a></li>
         {% elif last == 2 %}
@@ -166,9 +169,12 @@
         {% endif %}
         {% endif %}
         <li class="page-item"><a class="page-link disabled" href="">{{curent}} din {{last}}</a></li>
+        {% endif %}
       </ul>
+
     </nav>
-  {% endif %}
+
+
 {% else %}
     <nav aria-label="Page navigation example">
       <ul class="pagination">
