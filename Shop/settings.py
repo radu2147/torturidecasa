@@ -28,7 +28,7 @@ SECRET_KEY = 'ua(44@*9n_j$76()$_)^iuimiex6n%i3&e8gl&^lku_%px*%z6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['radu2147.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['radu2147.pythonanywhere.com', 'localhost', 'torturidecasa.herokuapp.com']
 
 FILE_CHARSET = 'utf-8'
 
