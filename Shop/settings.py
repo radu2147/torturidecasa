@@ -204,7 +204,6 @@ EMAIL_HOST_USER = 'radudjango@gmail.com'
 EMAIL_HOST_PASSWORD = 'hgfylkvkawiofzpd'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = "/clean"
 
 LOGIN_URL = '/accounts/login'
