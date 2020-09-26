@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'HomePage',
@@ -49,7 +50,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount',
-    'cloudinary_storage',
     'cloudinary',
     'User',
     'Cart',
@@ -201,7 +201,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'radudjango@gmail.com'
 EMAIL_HOST_PASSWORD = 'hgfylkvkawiofzpd'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 LOGIN_REDIRECT_URL = "/clean"
 
@@ -209,7 +209,7 @@ LOGIN_URL = '/accounts/login'
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
