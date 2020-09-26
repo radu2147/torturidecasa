@@ -134,11 +134,8 @@ class ProductPage(View):
         elif "gramaj" in request.POST.keys():
             form = Comanda(request.POST)
             if form.is_valid():
-                if not request.user.is_authenticated:
-                    return redirect('/accounts/login')
-                else:
-                    string = sub("\s", "_", form.cleaned_data['inscriptie'])
-                    return redirect("Cart:add", ident=ident, gr=form.cleaned_data['gramaj'], inscr=string,
+                string = sub("\s", "_", form.cleaned_data['inscriptie'])
+                return redirect("Cart:add", ident=ident, gr=form.cleaned_data['gramaj'], inscr=string,
                                         date=form.cleaned_data['date_of_order'])
             else:
                 return self.get(request, ident)

@@ -9,5 +9,4 @@ urlpatterns = [
     path('filter/<slug:nume>/<int:mini>/<int:maxi>/page/<int:page>', views.FilterView.as_view(), name='filter'),
     path('product/<int:ident>', views.ProductPage.as_view(), name="Prod"),
     path('', views.HomeSimple.as_view(), name='home'),
-    path('test/', views.test_cv)
 ]

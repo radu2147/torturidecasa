@@ -9,7 +9,7 @@ from django.http.response import HttpResponse
 
 @login_required
 def add_to_cart(request, ident, gr, inscr, date):
-    pr = Produs.objects.get(ident = ident)
+    pr = Produs.objects.get(ident=ident)
     c, created = Cart.objects.get_or_create(email = request.user.email, prod_id = ident, date_of_order = date, nume = pr.nume, pret = pr.pret, gram = gr, inscr = inscr, img_url = pr.cake_image.url)
     if created == False:
         c.quantity += 1
