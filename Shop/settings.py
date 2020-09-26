@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
+
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'HomePage',
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount',
+    'cloudinary_storage',
     'cloudinary',
     'User',
     'Cart',
@@ -60,6 +61,7 @@ AUTH_USER_MODEL = 'User.CustomUser'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -109,7 +111,6 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'htrlerdoj',
     'API_KEY': '552147323933463',
     'API_SECRET': 'h9ecPuLUFs1TXxMdqF8_BMOToNU',
-    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'static')
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -120,9 +121,6 @@ cloudinary.config(
   secure=True
 )
 
-
-STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -206,14 +204,14 @@ EMAIL_HOST_USER = 'radudjango@gmail.com'
 EMAIL_HOST_PASSWORD = 'hgfylkvkawiofzpd'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = "/clean"
 
 LOGIN_URL = '/accounts/login'
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
