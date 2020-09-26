@@ -109,6 +109,7 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'htrlerdoj',
     'API_KEY': '552147323933463',
     'API_SECRET': 'h9ecPuLUFs1TXxMdqF8_BMOToNU',
+    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'static')
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
