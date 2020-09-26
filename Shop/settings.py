@@ -194,13 +194,13 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_SIGNUP_FORM_CLASS = 'User.forms.RegisterForm'
 
-SERVER_EMAIL = 'bigtimemail.3@gmail.com'
+SERVER_EMAIL = 'radu.baston@protonmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.protonmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'bigtimemail.3@gmail.com'
-EMAIL_HOST_PASSWORD = 'dovle2147'
+EMAIL_HOST_USER = 'radu.baston@protonmail.com'
+EMAIL_HOST_PASSWORD = 'dovle046218'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
