@@ -15,7 +15,7 @@ class Cart(ProdUserRel):
     nume = models.CharField(max_length=50, default="")
     pret = models.FloatField(default=0)
     gram = models.IntegerField(default=0)
-    inscr = models.CharField(max_length=20, default="")
+    inscr = models.CharField(max_length=30, default="")
     img_url = models.CharField(max_length=100, null=True, blank=True)
     date_of_order = models.DateField()
     
