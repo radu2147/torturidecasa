@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
 import cloudinary
 from django.conf.global_settings import FILE_CHARSET
 
@@ -217,5 +216,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1359884140887669'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = 'af1fc61c96064370729d5a1f7b7d1b13' #app key
-
-django_heroku.settings(locals())
