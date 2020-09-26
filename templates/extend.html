@@ -118,6 +118,9 @@
 {% block pagination %}
 
 {% if is_filtered %}
+    {% if last == 0 %}
+      <li class="page-item"><a class="page-link disabled" href="">0 din 0</a></li>
+    {% else %}
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         {% if last == 1 %}
@@ -165,6 +168,7 @@
         <li class="page-item"><a class="page-link disabled" href="">{{curent}} din {{last}}</a></li>
       </ul>
     </nav>
+  {% endif %}
 {% else %}
     <nav aria-label="Page navigation example">
       <ul class="pagination">
