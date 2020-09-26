@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import cloudinary
+import django_heroku
 from django.conf.global_settings import FILE_CHARSET
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -203,7 +204,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'radudjango@gmail.com'
 EMAIL_HOST_PASSWORD = 'hgfylkvkawiofzpd'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = "/clean"
 
@@ -218,3 +219,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1359884140887669'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = 'af1fc61c96064370729d5a1f7b7d1b13' #app key
+
+django_heroku.settings(locals())
