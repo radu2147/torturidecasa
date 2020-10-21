@@ -20,18 +20,38 @@ class HomeSimple(View):
 
 
 class FilterView(View):
+    '''
+    The view that handles the page for the filtering form
+    '''
     form_class = FilterForm
 
-    def get(self, request, nume, mini, maxi, page):
+    def create_filtered_list(self, nume, mini, maxi, page):
+        '''
+        Creates and returns the list of filtered products based on name, min and max price, and the navigation
+        page
+        If the page is wrong it throws a 404 response
+        '''
         lista = []
         for obj in Produs.objects.all():
             if edit_distance_text(nume.lower(), obj.nume.lower()) <= 1 and mini <= obj.pret and maxi >= obj.pret:
                 lista.append(obj)
         if page > len(lista) // 3 + 1:
             return HttpResponse("404")
-        fav_list = sorted([obj for obj in Produs.objects.all()], key=lambda x: x.finalrating, reverse=True)[:3]
-        form = self.form_class()
         lista.sort(key=lambda x: x.finalrating, reverse=True)
+        return lista
+
+    @staticmethod
+    def create_top3_rated():
+        '''
+        Creates and return the top 3 Produss based on their final rating
+        '''
+        return sorted([obj for obj in Produs.objects.all()], key=lambda x: x.finalrating, reverse=True)[:3]
+
+    def get(self, request, nume, mini, maxi, page):
+
+        lista = self.create_filtered_list(nume, mini, maxi, page)
+        fav_list = FilterView.create_top3_rated()
+        form = self.form_class()
         return render(request, 'extend.html',
                       {'lista': lista[((page - 1) * 3):(page * 3)], 'favorites': fav_list, 'form': form,
                        'user': request.user, 'antepre': page - 2, 'prev': page - 1, 'curent': page, 'next': page + 1,
@@ -51,22 +71,26 @@ class FilterView(View):
 
 
 class ProductView(View):
+    '''
+    View that handles the logic of the home page
+    '''
     form_class = FilterForm
 
-    def get(self, request, page):
-        # for sorting purpose
+    @staticmethod
+    def create_top3_rated():
+        '''
+        Creates and return the top 3 Produss based on their final rating
+        '''
+        return sorted([obj for obj in Produs.objects.all()], key=lambda x: x.finalrating, reverse=True)[:3]
+
+    def validate_pages_on_mainpage(self, page):
         if page > len(Produs.objects.all()) // 3 + 1:
             return HttpResponse("404")
-        lista = [obj for obj in Produs.objects.all()]
 
-        fav_list = sorted(lista, key=lambda x: x.finalrating, reverse=True)[:3]
-        if request.user.is_authenticated:
-            for el in lista:
-                try:
-                    p = WishList.objects.get(email=request.user.email, prod_id=el.ident)
-                    el.wish = True
-                except:
-                    pass
+    def get(self, request, page):
+        self.validate_pages_on_mainpage(page)
+        lista = [obj for obj in Produs.objects.all()]
+        fav_list = ProductView.create_top3_rated()
         form = self.form_class()
 
         return render(request, 'extend.html',
@@ -98,6 +122,27 @@ class ProductPage(View):
                                                'comms': lista,
                                                'times': [0 for _ in range(nr)]})
 
+    def update_comments(self, ident, user, data):
+        prd = Produs.objects.get(ident=ident)
+        try:
+            comm = Comment.objects.get(user=user, produs=prd)
+            prd.sum += data['rating'] - comm.rating
+            comm.text = data['text']
+            comm.date = timezone.now()
+            comm.rating = data['rating']
+            comm.save()
+
+        except:
+            com = Comment.objects.create(user=user, produs=prd, text=data['text'],
+                                         date=timezone.now(), rating=data['rating'])
+            com.save()
+            prd.number += 1
+            prd.sum += data['rating']
+
+        prd.finalrating = prd.sum / prd.number
+        prd.save()
+        return prd
+
     def post(self, request, ident):
         if "rating" in request.POST.keys():
 
@@ -106,24 +151,7 @@ class ProductPage(View):
                 if not request.user.is_authenticated:
                     return redirect('/accounts/login')
                 else:
-                    prd = Produs.objects.get(ident=ident)
-                    try:
-                        comm = Comment.objects.get(user=request.user, produs=prd)
-                        prd.sum += form.cleaned_data['rating'] - comm.rating
-                        comm.text = form.cleaned_data['text']
-                        comm.date = timezone.now()
-                        comm.rating = form.cleaned_data['rating']
-                        comm.save()
-
-                    except:
-                        com = Comment.objects.create(user=request.user, produs=prd, text=form.cleaned_data['text'],
-                                                         date=timezone.now(), rating=form.cleaned_data['rating'])
-                        com.save()
-                        prd.number += 1
-                        prd.sum += form.cleaned_data['rating']
-
-                    prd.finalrating = prd.sum / prd.number
-                    prd.save()
+                    prd = self.update_comments(ident, request.user, form.cleaned_data)
                     nr = int(prd.finalrating)
                     lista = Comment.objects.filter(produs=prd)
                     return render(request, 'product.html',

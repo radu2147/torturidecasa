@@ -21,38 +21,50 @@ class UserView(View):
             return render(request, 'extend_user.html', {'user': request.user, 'form': form, 'addr': request.user.addr})
         return redirect('/accounts/login')
 
+    def change_user_address(self, user, data):
+        user.addr.street_number = data['street_number']
+        user.addr.street = data['street']
+        user.addr.bloc = data['bloc']
+        user.addr.ap = data['ap']
+        user.addr.scara = data['scara']
+        user.addr.phone_number = data['phone_number']
+        user.addr.save()
+        user.save()
+
+    def change_user_data(self, request, data):
+        # checks if the the password match otherwise returns an error message
+        if not request.user.check_password(data['old_passwd']):
+            return HttpResponse("Passwords do not match")
+        if valid_pass(data['passwd']):
+            # changes the user's password and reauthenticates the user back
+            obj = CustomUser.objects.get(email=request.user.email)
+            request.user.set_password(data['passwd'])
+            request.user.save()
+            obj = authenticate(request, email=obj.email, password=data['passwd'])
+            login(request, obj)
+        if valid_name(data['nume']):
+            # changes the user's name
+            request.user.nume = data['nume']
+            request.user.save()
+
+    def is_user_data_form(self, request):
+        return 'street' in request.POST.keys()
+
+    def is_user_addr_form(self, request):
+        'street' in request.POST.keys()
+
     def post(self, request):
         # checks which form data is being retrieved by form's keys
-        if 'street' in request.POST.keys():
+        if self.is_user_addr_form(request):
             form = AddrForm(request.POST)
             form.is_valid()
-            request.user.addr.street_number = form.cleaned_data['street_number']
-            request.user.addr.street = form.cleaned_data['street']
-            request.user.addr.bloc = form.cleaned_data['bloc']
-            request.user.addr.ap = form.cleaned_data['ap']
-            request.user.addr.scara = form.cleaned_data['scara']
-            request.user.addr.phone_number = form.cleaned_data['phone_number']    
-            request.user.addr.save()
-            request.user.save()
+            self.change_user_address(request.user, form.cleaned_data)
             return self.get(request)
         # form for name and password changing
-        elif 'old_passwd' in request.POST.keys():
+        elif self.is_user_data_form(request):
             form = ChangeForm(request.POST)
             if form.is_valid():
-                # checks if the the password match otherwise returns an error message
-                if not request.user.check_password(form.cleaned_data['old_passwd']):
-                    return HttpResponse("Passwords do not match")
-                if valid_pass(form.cleaned_data['passwd']):
-                    # changes the user's password and reauthenticates the user back
-                    obj = CustomUser.objects.get(email=request.user.email)
-                    request.user.set_password(form.cleaned_data['passwd'])
-                    request.user.save()
-                    obj = authenticate(request, email=obj.email, password=form.cleaned_data['passwd'])
-                    login(request, obj)
-                if valid_name(form.cleaned_data['nume']):
-                    # changes the user's name
-                    request.user.nume = form.cleaned_data['nume']
-                    request.user.save()
+                self.change_user_data(request, form.cleaned_data)
             addr = request.user.addr
             return render(request, 'extend_user.html', {'user': request.user, 'form' : form, 'addr' : addr})
 
