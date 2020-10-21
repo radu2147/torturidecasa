@@ -166,4 +166,3 @@ SOCIALACCOUNT_PROVIDERS = \
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 SITE_ID = 1
 
-SOCIAL_AUTH_FACEBOOK_SECRET = 'af1fc61c96064370729d5a1f7b7d1b13' #app key
