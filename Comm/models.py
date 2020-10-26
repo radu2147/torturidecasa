@@ -1,7 +1,6 @@
-from django.db import models
-from django.utils import timezone
 from HomePage.models import Produs
 from User.models import *
+
 
 # Create your models here.
 class Comment(models.Model):
@@ -10,6 +9,6 @@ class Comment(models.Model):
     date = models.DateField()
     rating = models.IntegerField()
     text = models.TextField()
-    
+
     def __str__(self):
         return "Comm: " + self.produs.nume + " " + str(self.rating)

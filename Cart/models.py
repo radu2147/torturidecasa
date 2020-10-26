@@ -34,7 +34,8 @@ class Cart(ProdUserRel):
         for el in Cart.objects.filter(email=email):
             price += el.get_subtotal()
         return (price * 100) // 1 / 100
-    
+
+
 class WishList(ProdUserRel):
 
     pret = models.FloatField()
