@@ -96,10 +96,30 @@ WSGI_APPLICATION = 'Shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = '******private information********'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd85dqp5vks1ki5',
+        'USER': 'wkivhetloypnzv',
+        'PASSWORD': '5aae610bec4b02d786d04986c9a8f8e3990dd2450b02758b049ffc449aafe76d',
+        'HOST': 'ec2-52-22-216-69.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
-CLOUDINARY_STORAGE = '******private information********'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'htrlerdoj',
+    'API_KEY': '552147323933463',
+    'API_SECRET': 'h9ecPuLUFs1TXxMdqF8_BMOToNU',
+}
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+cloudinary.config(
+  cloud_name='htrlerdoj',
+  api_key='552147323933463',
+  api_secret='h9ecPuLUFs1TXxMdqF8_BMOToNU',
+  secure=True
+)
 
 
 # Password validation
@@ -166,3 +186,35 @@ SOCIALACCOUNT_PROVIDERS = \
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 SITE_ID = 1
 
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_SIGNUP_FORM_CLASS = 'User.forms.RegisterForm'
+
+SERVER_EMAIL = 'radudjango@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'radudjango@gmail.com'
+EMAIL_HOST_PASSWORD = 'hgfylkvkawiofzpd'
+EMAIL_ORDER_RECEIVER = 'andrei.crisan2147@gmail.com'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+LOGIN_REDIRECT_URL = "/clean"
+
+LOGIN_URL = '/accounts/login'
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1359884140887669'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'af1fc61c96064370729d5a1f7b7d1b13' #app key
